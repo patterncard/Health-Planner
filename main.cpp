@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -34,6 +35,36 @@ class BMI
 };
 class Food
 {
+    public:
+    string foodName;
+    int foodAmount;
+    int calories;
+    
+    void enterFood()
+    {
+        cout << "Adding a meal" << endl;
+        cout << "Enter name of food:" << endl;
+        cin >> foodName;
+        cout << "Enter amount of food:" << endl;
+        cin >> foodAmount;
+        cout << "Enter amount of calories in meal" << endl;
+        cin >> calories;
+    }
+    void openFile()
+    {
+        ofstream openFile("food.txt");
+        if(!openFile.is_open())
+        cout << "Output file error" << endl;
+        else
+        {
+            openFile << foodName;
+            openFile << foodAmount;
+            openFile << calories;
+        }
+        openFile.close();
+        
+    }
+
 };
 class Calories
 {
@@ -50,4 +81,7 @@ class Workout
 
 int main()
 {
+    Food bread;
+    bread.enterFood();
+    bread.openFile();
 }
