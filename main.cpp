@@ -80,7 +80,7 @@ class Workout
 
 int main()
 {
-    Food bread;
-    bread.enterFood();
-    bread.openFile();
+    Food breadd;
+    breadd.enterFood();
+    breadd.openFile();
 }
