@@ -61,8 +61,7 @@ class Food
             openFile << foodAmount;
             openFile << calories;
         }
-        openFile.close();
-        
+        openFile.close();        
     }
 
 };
