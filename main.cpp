@@ -43,10 +43,10 @@ class Food
     void enterFood()
     {
         cout << "Adding a meal" << endl;
-        cout << "Enter name of food:" << endl;
-        cin >> foodName;
         cout << "Enter amount of food:" << endl;
         cin >> foodAmount;
+        cout << "Enter name of food:" << endl;
+        cin >> foodName;
         cout << "Enter amount of calories in meal" << endl;
         cin >> calories;
     }
@@ -57,8 +57,8 @@ class Food
         cout << "Output file error" << endl;
         else
         {
-            openFile << foodName;
             openFile << foodAmount;
+            openFile << foodName;
             openFile << calories;
         }
         openFile.close();        
