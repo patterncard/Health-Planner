@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <SFML/Window.hpp>
 
 using namespace std;
 
@@ -16,13 +17,13 @@ class BMI
         double height;
         cin >> height;
 
-        double BodyMassIndex = weight / (height * height); 
+        double BodyMassIndex = weight / (height * height);
 
-        cout << "Your Body Mass Index (BMI) is " << BodyMassIndex << endl; 
+        cout << "Your Body Mass Index (BMI) is " << BodyMassIndex << endl;
 
         if (BodyMassIndex < 18.5)
-            cout << "Unfortunately, you are malnourished.\n"; 
-        else if(BodyMassIndex<25 & BodyMassIndex > 18.5)
+            cout << "Unfortunately, you are malnourished.\n";
+        else if (BodyMassIndex<25 & BodyMassIndex> 18.5)
         {
             cout << "Optimal" << endl;
         }
@@ -30,16 +31,15 @@ class BMI
         {
             cout << "You're overweight" << endl;
         }
-        
     }
 };
 class Food
 {
-    public:
+public:
     string foodName;
     int foodAmount;
     int calories;
-    
+
     void enterFood()
     {
         cout << "Adding a meal" << endl;
@@ -52,18 +52,17 @@ class Food
     }
     void openFile()
     {
-        ofstream openFile("food.txt");
-        if(!openFile.is_open())
-        cout << "Output file error" << endl;
+        ofstream openFile("build/food.txt");
+        if (!openFile.is_open())
+            cout << "Output file error" << endl;
         else
         {
             openFile << foodAmount;
             openFile << foodName;
             openFile << calories;
         }
-        openFile.close();        
+        openFile.close();
     }
-
 };
 class Calories
 {
@@ -80,6 +79,7 @@ class Workout
 
 int main()
 {
+    // sf::Window window(sf::VideoMode(800, 600), "My window");
     Food breadd;
     breadd.enterFood();
     breadd.openFile();
