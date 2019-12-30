@@ -9,7 +9,7 @@ class BMI
 {
     void calcBMI()
     {
-        cout << "Please enter your weight (in kilograms) : ";
+        cout << "Please enter your weight (in kilograms): ";
         double weight;
         cin >> weight;
 
