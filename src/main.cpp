@@ -9,7 +9,7 @@ class BMI
 {
     void calcBMI()
     {
-        cout << "Please enter your weight (in kilograms): ";
+        cout << "Please enter your weight (in kilograms):";
         double weight;
         cin >> weight;
 
@@ -79,8 +79,17 @@ class Workout
 
 int main()
 {
-    // sf::Window window(sf::VideoMode(800, 600), "My window");
-    Food breadd;
-    breadd.enterFood();
-    breadd.openFile();
+    sf::Window window(sf::VideoMode(800, 600), "Health Planner");
+        while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+    }
+    // Food breadd;
+    // breadd.enterFood();
+    // breadd.openFile();
 }
