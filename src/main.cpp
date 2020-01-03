@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 using namespace std;
 
@@ -79,8 +80,8 @@ class Workout
 
 int main()
 {
-    sf::Window window(sf::VideoMode(800, 600), "Health Planner");
-        while (window.isOpen())
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Health Planner");
+    while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -88,6 +89,20 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        sf::Font font;
+        if (!font.loadFromFile("font/CaviarDreams.ttf"))
+        {
+            // error
+        }
+        sf::Text text;
+        text.setFont(font);
+        text.setString("Hello world");
+        text.setCharacterSize(24);
+        text.setFillColor(sf::Color::White);
+
+        window.clear(sf::Color::Black);
+        window.draw(text);
+        window.display();
     }
     // Food breadd;
     // breadd.enterFood();
