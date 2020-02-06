@@ -56,6 +56,41 @@ public:
         return bmr;
     }
 };
+class Results
+{
+public:
+    int day;
+    int weight;
+    void calendar()
+    {
+        int A[day][weight];
+    }
+};
+class Diet
+{
+    bool loss;
+    bool keep;
+    bool gain;
+    void selectGoal(bool g)
+    {
+        bool goal = g;
+    }
+};
+class Calories
+{
+public:
+    double calr = 2000;
+    double setCalories(double BMIndex)
+    {
+        if (BMIndex < 18.5)
+            calr += 1000;
+        else if (BMIndex > 18.5)
+        {
+            calr -= 1000;
+        }
+        return calr;
+    }
+};
 
 static void glfw_error_callback(int error, const char *description)
 {
@@ -128,20 +163,6 @@ int main(int, char **)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    // Load Fonts
-    // - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
-    // - AddFontFromFileTTF() will return the ImFont* so you can store it if you need to select the font among multiple.
-    // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
-    // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
-    // - Read 'docs/FONTS.txt' for more instructions and details.
-    // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
-    //io.Fonts->AddFontDefault();
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/DroidSans.ttf", 16.0f);
-    //io.Fonts->AddFontFromFileTTF("../../misc/fonts/ProggyTiny.ttf", 10.0f);
-    //ImFont* font = io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\ArialUni.ttf", 18.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
-    //IM_ASSERT(font != NULL);
 
     // Our state
     bool show_demo_window = true;
@@ -167,9 +188,6 @@ int main(int, char **)
 
         //  Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
-            static float f = 0.0f;
-            static int counter = 0;
-
             ImGui::Begin("Calculating BMI"); // Create a window and append into it.
 
             ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
@@ -214,9 +232,6 @@ int main(int, char **)
         }
 
         {
-            static float f = 0.0f;
-            static int counter = 0;
-
             ImGui::Begin("Calculating BMR"); // Create a window and append into it.
 
             ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
@@ -261,9 +276,6 @@ int main(int, char **)
         }
 
         {
-            static float f = 0.0f;
-            static int counter = 0;
-
             static bool checkBox1 = false;
             static bool checkBox2 = false;
             static bool checkBox3 = false;
@@ -280,6 +292,30 @@ int main(int, char **)
             ImGui::Checkbox("Day 5", &checkBox5);
             ImGui::Checkbox("Day 6", &checkBox6);
             ImGui::Checkbox("Day 7", &checkBox7);
+
+            ImGui::End();
+        }
+
+        {
+            Calories ckal;
+            ImGui::Begin("Diet"); // Create a window and append into it.
+            ImGui::Text("Set your diet goal: ");
+            if (ImGui::TreeNode("Weight loss"))
+            {
+                static bool checkBoxx = false;
+                ImGui::Checkbox("1000 kcal", &checkBoxx);
+            }
+            if (ImGui::TreeNode("Keeping weight"))
+            {
+                static bool checkBoxy = false;
+                ImGui::Checkbox("2000 kcal", &checkBoxy);
+            }
+
+            if (ImGui::TreeNode("Weight gain"))
+            {
+                static bool checkBoxz = false;
+                ImGui::Checkbox("3000 kacl", &checkBoxz);
+            }
 
             ImGui::End();
         }
