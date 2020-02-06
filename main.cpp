@@ -40,17 +40,20 @@ public:
     {
         double BodyMassIndex;
         return BodyMassIndex = weight / (height * height);
+    }
+};
+class BMR : public BMI
+{
+public:
+    double weight;
+    double height;
+    int age;
+    double bmr;
 
-        // if (BodyMassIndex < 18.5)
-        //     cout << "Unfortunately, you are malnourished.\n";
-        // else if (BodyMassIndex<25 & BodyMassIndex> 18.5)
-        // {
-        //     cout << "Optimal" << endl;
-        // }
-        // else if (BodyMassIndex > 18.5)
-        // {
-        //     cout << "You're overweight" << endl;
-        // }
+    double calcBMR(double weight, double height, double age)
+    {
+        bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
+        return bmr;
     }
 };
 
@@ -143,6 +146,8 @@ int main(int, char **)
     // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
+    bool show_second_window = false;
+    bool show_third_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // Main loop
@@ -161,8 +166,8 @@ int main(int, char **)
         ImGui::NewFrame();
 
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
+        // if (show_demo_window)
+        //     ImGui::ShowDemoWindow(&show_demo_window);
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
@@ -171,29 +176,32 @@ int main(int, char **)
 
             ImGui::Begin("Calculating BMI"); // Create a window and append into it.
 
-            ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
-            static char buf2[64] = "";
-            ImGui::InputText("cm", buf2, 64);
-            int height = (char)buf2[64];
             ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
             static char buf1[64] = "";
             ImGui::InputText("kg", buf1, 64);
             int weight = (char)buf1[64];
+
+            ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
+            static char buf2[64] = "";
+            ImGui::InputText("cm", buf2, 64);
+            int height = (char)buf2[64];
+
             BMI bemi;
             double number = bemi.calcBMI(weight, height);
             static char nr = (double)number;
             char *num = &nr;
 
-            if(ImGui::Button("Calculate BMI"))
+            if (ImGui::Button("Calculate BMI"))
             {
                 show_another_window = true;
                 ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
                 ImGui::Text("Your BMI is: ");
                 ImGui::Text("%d", number);
+
                 if (ImGui::Button("Close Me"))
                     show_another_window = false;
-                ImGui::End();
 
+                ImGui::End();
             }
 
             if (show_another_window)
@@ -206,18 +214,6 @@ int main(int, char **)
                 ImGui::End();
             }
 
-            ImGui::Checkbox("Demo Window", &show_demo_window); // Edit bools storing our window open/close state
-            ImGui::Checkbox("Another Window", &show_another_window);
-
-            ImGui::SliderFloat("float", &f, 0.0f, 1.0f);             // Edit 1 float using a slider from 0.0f to 1.0f
-            ImGui::ColorEdit3("clear color", (float *)&clear_color); // Edit 3 floats representing a color
-
-            if (ImGui::Button("Button")) // Buttons return true when clicked (most widgets return true when edited/activated)
-                counter++;
-            ImGui::SameLine();
-            ImGui::Text("counter = %d", counter);
-
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
             ImGui::End();
         }
 
@@ -227,6 +223,77 @@ int main(int, char **)
         //     ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
         //     ImGui::End();
         // }
+
+        {
+            static float f = 0.0f;
+            static int counter = 0;
+
+            ImGui::Begin("Calculating BMR"); // Create a window and append into it.
+
+            ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
+            static char buf2[64] = "";
+            ImGui::InputText("cm", buf2, 64);
+            int height = (char)buf2[64];
+            ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
+            static char buf1[64] = "";
+            ImGui::InputText("kg", buf1, 64);
+            int weight = (char)buf1[64];
+            ImGui::Text("Enter your age:"); // Display some text (you can use a format strings too)
+            static char buf3[64] = "";
+            ImGui::InputText("years", buf3, 64);
+            int age = (char)buf3[64];
+            BMR bemr;
+            double number2 = bemr.calcBMR(weight, height, age);
+            static char nr2 = (double)number2;
+            char *num2 = &nr2;
+
+            if (ImGui::Button("Calculate BMR"))
+            {
+                show_second_window = true;
+                ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                ImGui::Text("Your BMR is: ");
+                ImGui::Text("%d", number2);
+                if (ImGui::Button("Close Me"))
+                    show_second_window = false;
+                ImGui::End();
+            }
+
+            if (show_second_window)
+            {
+                ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                ImGui::Text("Your BMR is: ");
+                ImGui::Text("%d", number2);
+                if (ImGui::Button("Close Me"))
+                    show_second_window = false;
+                ImGui::End();
+            }
+
+            ImGui::End();
+        }
+
+        {
+            static float f = 0.0f;
+            static int counter = 0;
+
+            static bool checkBox1 = false;
+            static bool checkBox2 = false;
+            static bool checkBox3 = false;
+            static bool checkBox4 = false;
+            static bool checkBox5 = false;
+            static bool checkBox6 = false;
+            static bool checkBox7 = false;
+
+            ImGui::Begin("Tracking training"); // Create a window and append into it.
+            ImGui::Checkbox("Day 1", &checkBox1);
+            ImGui::Checkbox("Day 2", &checkBox2);
+            ImGui::Checkbox("Day 3", &checkBox3);
+            ImGui::Checkbox("Day 4", &checkBox4);
+            ImGui::Checkbox("Day 5", &checkBox5);
+            ImGui::Checkbox("Day 6", &checkBox6);
+            ImGui::Checkbox("Day 7", &checkBox7);
+
+            ImGui::End();
+        }
 
         // Rendering
         ImGui::Render();
