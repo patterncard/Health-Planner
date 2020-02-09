@@ -3,17 +3,17 @@
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
 #include <iostream>
+#include "BMI.h"
+// #include "Results.h"
+// #include "BMR.h"
 
 // About Desktop OpenGL function loaders:
 //  Modern desktop OpenGL doesn't have a standard portable header file to load OpenGL function pointers.
 //  Helper libraries are often used for this purpose! Here we are supporting a few common ones (gl3w, glew, glad).
 //  You may use another loader/header of your choice (glext, glLoadGen, etc.), or chose to manually implement your own.
+
 #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
 #include "GL/gl3w.h" // Initialize with gl3wInit()
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
-#include <GL/glew.h> // Initialize with glewInit()
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
-#include <glad/glad.h> // Initialize with gladLoadGL()
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING)
 #define GLFW_INCLUDE_NONE        // GLFW including OpenGL headers causes ambiguity or multiple definition errors.
 #include <glbinding/glbinding.h> // Initialize with glbinding::initialize()
@@ -33,39 +33,6 @@ using namespace gl;
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
 
-class BMI
-{
-public:
-    double calcBMI(double weight, double height)
-    {
-        double BodyMassIndex;
-        return BodyMassIndex = weight / (height * height);
-    }
-};
-class BMR : public BMI
-{
-public:
-    double weight;
-    double height;
-    int age;
-    double bmr;
-
-    double calcBMR(double weight, double height, double age)
-    {
-        bmr = 655 + (4.35 * weight) + (4.7 * height) - (4.7 * age);
-        return bmr;
-    }
-};
-class Results
-{
-public:
-    int day;
-    int weight;
-    void calendar()
-    {
-        int A[day][weight];
-    }
-};
 class Diet
 {
     bool loss;
@@ -99,27 +66,14 @@ static void glfw_error_callback(int error, const char *description)
 
 int main(int, char **)
 {
-    // Setup window
+        // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;
 
-        // Decide GL+GLSL versions
-#if __APPLE__
-    // GL 3.2 + GLSL 150
-    const char *glsl_version = "#version 150";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // 3.2+ only
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);           // Required on Mac
-#else
-    // GL 3.0 + GLSL 130
     const char *glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
-#endif
 
     // Create window with graphics context
     GLFWwindow *window = glfwCreateWindow(1280, 720, "Health Planner", NULL, NULL);
@@ -131,10 +85,6 @@ int main(int, char **)
     // Initialize OpenGL loader
 #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
     bool err = gl3wInit() != 0;
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
-    bool err = glewInit() != GLEW_OK;
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
-    bool err = gladLoadGL() == 0;
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING)
     bool err = false;
     glbinding::initialize([](const char *name) { return (glbinding::ProcAddress)glfwGetProcAddress(name); });
@@ -152,33 +102,20 @@ int main(int, char **)
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     (void)io;
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-
-    // Setup Dear ImGui style
     ImGui::StyleColorsDark();
-    //ImGui::StyleColorsClassic();
-
-    // Setup Platform/Renderer bindings
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
+    Bmi bmi;
 
-    // Our state
     bool show_demo_window = true;
     bool show_another_window = false;
     bool show_second_window = false;
     bool show_third_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    // Main loop
     while (!glfwWindowShouldClose(window))
     {
-        // Poll and handle events (inputs, window resize, etc.)
-        // You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
-        // - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
-        // - When io.WantCaptureKeyboard is true, do not dispatch keyboard input data to your main application.
-        // Generally you may always pass all inputs to dear imgui, and hide them from your application based on those two flags.
         glfwPollEvents();
 
         // Start the Dear ImGui frame
@@ -186,139 +123,132 @@ int main(int, char **)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        //  Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
-            ImGui::Begin("Calculating BMI"); // Create a window and append into it.
+            ImGui::Begin("Calculating BMI");   // Create a window and append into it.
+            ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
+            static char buf2[64] = "";
+            ImGui::InputText("cm", buf2, 64);
 
             ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
             static char buf1[64] = "";
             ImGui::InputText("kg", buf1, 64);
-            int weight = (char)buf1[64];
 
-            ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
-            static char buf2[64] = "";
-            ImGui::InputText("cm", buf2, 64);
-            int height = (char)buf2[64];
-
-            BMI bemi;
-            double number = bemi.calcBMI(weight, height);
-            static char nr = (double)number;
-            char *num = &nr;
+            static double number;
 
             if (ImGui::Button("Calculate BMI"))
             {
+                double height = atoi(buf2);
+                double weight = atoi(buf1);
+
+                number = bmi.calcBMI(weight, height);
                 show_another_window = true;
-                ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-                ImGui::Text("Your BMI is: ");
-                ImGui::Text("%d", number);
-
-                if (ImGui::Button("Close Me"))
-                    show_another_window = false;
-
-                ImGui::End();
             }
 
             if (show_another_window)
             {
                 ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
                 ImGui::Text("Your BMI is: ");
-                ImGui::Text("%d", number);
+                int bmiResultInt = (double)number;
+                ImGui::Text("%i", bmiResultInt);
                 if (ImGui::Button("Close Me"))
                     show_another_window = false;
                 ImGui::End();
             }
 
-            ImGui::End();
-        }
-
-        {
-            ImGui::Begin("Calculating BMR"); // Create a window and append into it.
-
-            ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
-            static char buf2[64] = "";
-            ImGui::InputText("cm", buf2, 64);
-            int height = (char)buf2[64];
-            ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
-            static char buf1[64] = "";
-            ImGui::InputText("kg", buf1, 64);
-            int weight = (char)buf1[64];
-            ImGui::Text("Enter your age:"); // Display some text (you can use a format strings too)
-            static char buf3[64] = "";
-            ImGui::InputText("years", buf3, 64);
-            int age = (char)buf3[64];
-            BMR bemr;
-            double number2 = bemr.calcBMR(weight, height, age);
-            static char nr2 = (double)number2;
-            char *num2 = &nr2;
-
-            if (ImGui::Button("Calculate BMR"))
-            {
-                show_second_window = true;
-                ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-                ImGui::Text("Your BMR is: ");
-                ImGui::Text("%d", number2);
-                if (ImGui::Button("Close Me"))
-                    show_second_window = false;
-                ImGui::End();
-            }
-
-            if (show_second_window)
-            {
-                ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-                ImGui::Text("Your BMR is: ");
-                ImGui::Text("%d", number2);
-                if (ImGui::Button("Close Me"))
-                    show_second_window = false;
-                ImGui::End();
-            }
 
             ImGui::End();
         }
 
-        {
-            static bool checkBox1 = false;
-            static bool checkBox2 = false;
-            static bool checkBox3 = false;
-            static bool checkBox4 = false;
-            static bool checkBox5 = false;
-            static bool checkBox6 = false;
-            static bool checkBox7 = false;
+        
 
-            ImGui::Begin("Tracking training"); // Create a window and append into it.
-            ImGui::Checkbox("Day 1", &checkBox1);
-            ImGui::Checkbox("Day 2", &checkBox2);
-            ImGui::Checkbox("Day 3", &checkBox3);
-            ImGui::Checkbox("Day 4", &checkBox4);
-            ImGui::Checkbox("Day 5", &checkBox5);
-            ImGui::Checkbox("Day 6", &checkBox6);
-            ImGui::Checkbox("Day 7", &checkBox7);
+        // {
+        //     ImGui::Begin("Calculating BMR"); // Create a window and append into it.
 
-            ImGui::End();
-        }
+        //     ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
+        //     static char buf2[64] = "";
+        //     ImGui::InputText("cm", buf2, 64);
+        //     int height = (char)buf2[64];
+        //     ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
+        //     static char buf1[64] = "";
+        //     ImGui::InputText("kg", buf1, 64);
+        //     int weight = (char)buf1[64];
+        //     ImGui::Text("Enter your age:"); // Display some text (you can use a format strings too)
+        //     static char buf3[64] = "";
+        //     ImGui::InputText("years", buf3, 64);
+        //     int age = (char)buf3[64];
+        //     BMR bemr;
+        //     double number2 = bemr.calcBMR(weight, height, age);
+        //     static char nr2 = (double)number2;
+        //     char *num2 = &nr2;
 
-        {
-            Calories ckal;
-            ImGui::Begin("Diet"); // Create a window and append into it.
-            ImGui::Text("Set your diet goal: ");
-            if (ImGui::TreeNode("Weight loss"))
-            {
-                static bool checkBoxx = false;
-                ImGui::Checkbox("1000 kcal", &checkBoxx);
-            }
-            if (ImGui::TreeNode("Keeping weight"))
-            {
-                static bool checkBoxy = false;
-                ImGui::Checkbox("2000 kcal", &checkBoxy);
-            }
+        //     if (ImGui::Button("Calculate BMR"))
+        //     {
+        //         show_second_window = true;
+        //         ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+        //         ImGui::Text("Your BMR is: ");
+        //         ImGui::Text("%d", number2);
+        //         if (ImGui::Button("Close Me"))
+        //             show_second_window = false;
+        //         ImGui::End();
+        //     }
 
-            if (ImGui::TreeNode("Weight gain"))
-            {
-                static bool checkBoxz = false;
-                ImGui::Checkbox("3000 kacl", &checkBoxz);
-            }
+        //     if (show_second_window)
+        //     {
+        //         ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+        //         ImGui::Text("Your BMR is: ");
+        //         ImGui::Text("%d", number2);
+        //         if (ImGui::Button("Close Me"))
+        //             show_second_window = false;std
+        //         ImGui::End();
+        //     }
 
-            ImGui::End();
-        }
+        //     ImGui::End();
+        // }
+
+        // {
+        //     static bool checkBox1 = false;
+        //     static bool checkBox2 = false;
+        //     static bool checkBox3 = false;
+        //     static bool checkBox4 = false;
+        //     static bool checkBox5 = false;
+        //     static bool checkBox6 = false;
+        //     static bool checkBox7 = false;
+
+        //     ImGui::Begin("Tracking training"); // Create a window and append into it.
+        //     ImGui::Checkbox("Day 1", &checkBox1);
+        //     ImGui::Checkbox("Day 2", &checkBox2);
+        //     ImGui::Checkbox("Day 3", &checkBox3);
+        //     ImGui::Checkbox("Day 4", &checkBox4);
+        //     ImGui::Checkbox("Day 5", &checkBox5);
+        //     ImGui::Checkbox("Day 6", &checkBox6);
+        //     ImGui::Checkbox("Day 7", &checkBox7);
+
+        //     ImGui::End();
+        // }
+
+        // {
+        //     Calories ckal;
+        //     ImGui::Begin("Diet"); // Create a window and append into it.
+        //     ImGui::Text("Set your diet goal: ");
+        //     if (ImGui::TreeNode("Weight loss"))
+        //     {
+        //         static bool checkBoxx = false;
+        //         ImGui::Checkbox("1000 kcal", &checkBoxx);
+        //     }
+        //     if (ImGui::TreeNode("Keeping weight"))
+        //     {
+        //         static bool checkBoxy = false;
+        //         ImGui::Checkbox("2000 kcal", &checkBoxy);
+        //     }
+
+        //     if (ImGui::TreeNode("Weight gain"))
+        //     {
+        //         static bool checkBoxz = false;
+        //         ImGui::Checkbox("3000 kacl", &checkBoxz);
+        //     }
+
+        //     ImGui::End();
+        // }
 
         // Rendering
         ImGui::Render();
