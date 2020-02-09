@@ -3,9 +3,8 @@
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
 #include <iostream>
-#include "BMI.h"
 // #include "Results.h"
-// #include "BMR.h"
+#include "BMR.h"
 
 // About Desktop OpenGL function loaders:
 //  Modern desktop OpenGL doesn't have a standard portable header file to load OpenGL function pointers.
@@ -106,10 +105,11 @@ int main(int, char **)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    Bmi bmi;
+    BMI bmi;
+    BMR bmr;
 
     bool show_demo_window = true;
-    bool show_another_window = false;
+    bool showBmiResultWindow = false;
     bool show_second_window = false;
     bool show_third_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -125,85 +125,78 @@ int main(int, char **)
 
         {
             ImGui::Begin("Calculating BMI");   // Create a window and append into it.
+
             ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
-            static char buf2[64] = "";
-            ImGui::InputText("cm", buf2, 64);
+            static char heightEnteredChar[64] = "";
+            ImGui::InputText("cm", heightEnteredChar, 64);
 
             ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
-            static char buf1[64] = "";
-            ImGui::InputText("kg", buf1, 64);
+            static char weightEnteredChar[64] = "";
+            ImGui::InputText("kg", weightEnteredChar, 64);
 
-            static double number;
+            static double bmiResultDouble;
 
             if (ImGui::Button("Calculate BMI"))
             {
-                double height = atoi(buf2);
-                double weight = atoi(buf1);
+                double height = atoi(heightEnteredChar);
+                double weight = atoi(weightEnteredChar);
 
-                number = bmi.calcBMI(weight, height);
-                show_another_window = true;
+                bmiResultDouble = bmi.calcBMI(weight, height);
+                showBmiResultWindow = true;
             }
 
-            if (show_another_window)
+            if (showBmiResultWindow)
             {
-                ImGui::Begin("Another Window", &show_another_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                ImGui::Begin("BMI Result", &showBmiResultWindow); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
                 ImGui::Text("Your BMI is: ");
-                int bmiResultInt = (double)number;
+                int bmiResultInt = (double)bmiResultDouble;
                 ImGui::Text("%i", bmiResultInt);
                 if (ImGui::Button("Close Me"))
-                    show_another_window = false;
+                    showBmiResultWindow = false;
                 ImGui::End();
             }
-
-
             ImGui::End();
         }
 
-        
+        {
+            ImGui::Begin("Calculating BMR");   // Create a window and append into it.
 
-        // {
-        //     ImGui::Begin("Calculating BMR"); // Create a window and append into it.
+            ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
+            static char heightEnteredChar[64] = "";
+            ImGui::InputText("cm", heightEnteredChar, 64);
 
-        //     ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
-        //     static char buf2[64] = "";
-        //     ImGui::InputText("cm", buf2, 64);
-        //     int height = (char)buf2[64];
-        //     ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
-        //     static char buf1[64] = "";
-        //     ImGui::InputText("kg", buf1, 64);
-        //     int weight = (char)buf1[64];
-        //     ImGui::Text("Enter your age:"); // Display some text (you can use a format strings too)
-        //     static char buf3[64] = "";
-        //     ImGui::InputText("years", buf3, 64);
-        //     int age = (char)buf3[64];
-        //     BMR bemr;
-        //     double number2 = bemr.calcBMR(weight, height, age);
-        //     static char nr2 = (double)number2;
-        //     char *num2 = &nr2;
+            ImGui::Text("Enter your weight:"); // Display some text (you can use a format strings too)
+            static char weightEnteredChar[64] = "";
+            ImGui::InputText("kg", weightEnteredChar, 64);
 
-        //     if (ImGui::Button("Calculate BMR"))
-        //     {
-        //         show_second_window = true;
-        //         ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-        //         ImGui::Text("Your BMR is: ");
-        //         ImGui::Text("%d", number2);
-        //         if (ImGui::Button("Close Me"))
-        //             show_second_window = false;
-        //         ImGui::End();
-        //     }
+            ImGui::Text("Enter your age:"); // Display some text (you can use a format strings too)
+            static char ageEnteredChar[64] = "";
+            ImGui::InputText("years", ageEnteredChar, 64);
 
-        //     if (show_second_window)
-        //     {
-        //         ImGui::Begin("Another Window", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
-        //         ImGui::Text("Your BMR is: ");
-        //         ImGui::Text("%d", number2);
-        //         if (ImGui::Button("Close Me"))
-        //             show_second_window = false;std
-        //         ImGui::End();
-        //     }
+            static double bmrResultDouble;
 
-        //     ImGui::End();
-        // }
+            if (ImGui::Button("Calculate BMR"))
+            {
+                double height = atoi(heightEnteredChar);
+                double weight = atoi(weightEnteredChar);
+                double age = atoi(ageEnteredChar);
+
+                bmrResultDouble = bmr.calcBMR(weight, height, age);
+                show_second_window = true;
+            }
+
+            if (show_second_window)
+            {
+                ImGui::Begin("BMR Result", &show_second_window); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                ImGui::Text("Your BMR is: ");
+                int bmrResultInt = (double)bmrResultDouble;
+                ImGui::Text("%i", bmrResultInt);
+                if (ImGui::Button("Close Me"))
+                    show_second_window = false;
+                ImGui::End();
+            }
+            ImGui::End();
+        }
 
         // {
         //     static bool checkBox1 = false;
