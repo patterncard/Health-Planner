@@ -65,7 +65,7 @@ static void glfw_error_callback(int error, const char *description)
 
 int main(int, char **)
 {
-        // Setup window
+    // Setup window
     glfwSetErrorCallback(glfw_error_callback);
     if (!glfwInit())
         return 1;
@@ -105,11 +105,9 @@ int main(int, char **)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    BMI bmi;
-    BMR bmr;
-
     bool show_demo_window = true;
     bool showBmiResultWindow = false;
+    bool errorWindowHeight = false;
     bool show_second_window = false;
     bool show_third_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -124,7 +122,8 @@ int main(int, char **)
         ImGui::NewFrame();
 
         {
-            ImGui::Begin("Calculating BMI");   // Create a window and append into it.
+            ImGui::Begin("Calculating BMI"); // Create a window and append into it.
+            BMI bmi;
 
             ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
             static char heightEnteredChar[64] = "";
@@ -141,8 +140,29 @@ int main(int, char **)
                 double height = atoi(heightEnteredChar);
                 double weight = atoi(weightEnteredChar);
 
-                bmiResultDouble = bmi.calcBMI(weight, height);
-                showBmiResultWindow = true;
+                try
+                {
+                    if (height <= 0 || weight <= 0)
+                    {
+                        throw "error";
+                    }
+                    bmiResultDouble = bmi.calcBMI(weight, height);
+                    showBmiResultWindow = true;
+                }
+                catch (const char *e)
+                {
+                    std::cout << e << std::endl;
+                    errorWindowHeight = true;
+                }
+            }
+            if (errorWindowHeight)
+            {
+                ImGui::Begin("Error");
+                ImGui::Text("Value of height and weight cannot be 0 or less.");
+                ImGui::Text("Please enter positive number");
+                if (ImGui::Button("Close Me"))
+                    errorWindowHeight = false;
+                ImGui::End();
             }
 
             if (showBmiResultWindow)
@@ -159,7 +179,8 @@ int main(int, char **)
         }
 
         {
-            ImGui::Begin("Calculating BMR");   // Create a window and append into it.
+            ImGui::Begin("Calculating BMR"); // Create a window and append into it.
+            BMR bmr;
 
             ImGui::Text("Enter your height:"); // Display some text (you can use a format strings too)
             static char heightEnteredChar[64] = "";
