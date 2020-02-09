@@ -107,7 +107,8 @@ int main(int, char **)
 
     bool show_demo_window = true;
     bool showBmiResultWindow = false;
-    bool errorWindowHeight = false;
+    bool errorWindowBmi = false;
+    bool errorWindowBmr = false;
     bool show_second_window = false;
     bool show_third_window = false;
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -144,24 +145,24 @@ int main(int, char **)
                 {
                     if (height <= 0 || weight <= 0)
                     {
-                        throw "error";
+                        throw "error1";
                     }
                     bmiResultDouble = bmi.calcBMI(weight, height);
                     showBmiResultWindow = true;
                 }
-                catch (const char *e)
+                catch (const char *e1)
                 {
-                    std::cout << e << std::endl;
-                    errorWindowHeight = true;
+                    std::cout << e1 << std::endl;
+                    errorWindowBmi = true;
                 }
             }
-            if (errorWindowHeight)
+            if (errorWindowBmi)
             {
-                ImGui::Begin("Error");
+                ImGui::Begin("Error 101", &errorWindowBmi);
                 ImGui::Text("Value of height and weight cannot be 0 or less.");
                 ImGui::Text("Please enter positive number");
                 if (ImGui::Button("Close Me"))
-                    errorWindowHeight = false;
+                    errorWindowBmi = false;
                 ImGui::End();
             }
 
@@ -202,8 +203,29 @@ int main(int, char **)
                 double weight = atoi(weightEnteredChar);
                 double age = atoi(ageEnteredChar);
 
-                bmrResultDouble = bmr.calcBMR(weight, height, age);
-                show_second_window = true;
+                try
+                {
+                    if (height <= 0 || weight < 0 || age < 0)
+                    {
+                        throw "error2";
+                    }
+                    bmrResultDouble = bmr.calcBMR(weight, height, age);
+                    show_second_window = true;
+                }
+                catch (const char *e2)
+                {
+                    std::cout << e2 << std::endl;
+                    errorWindowBmr = true;
+                }
+            }
+            if (errorWindowBmr)
+            {
+                ImGui::Begin("Error 202", &errorWindowBmr);
+                ImGui::Text("Value of height, weight and age cannot be 0 or less.");
+                ImGui::Text("Please enter positive number");
+                if (ImGui::Button("Close Me"))
+                    errorWindowBmr = false;
+                ImGui::End();
             }
 
             if (show_second_window)
