@@ -2,7 +2,7 @@ EXE = health
 SOURCES = main.cpp
 SOURCES += ./imgui_impl_glfw.cpp ./imgui_impl_opengl3.cpp
 SOURCES += ./imgui.cpp ./imgui_demo.cpp ./imgui_draw.cpp ./imgui_widgets.cpp
-SOURCES += ./BMI.cpp ./BMR.cpp
+SOURCES += ./BMI.cpp ./BMR.cpp ./Water.cpp ./Dish.cpp ./Food.cpp
 OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 
@@ -18,10 +18,6 @@ LIBS =
 SOURCES += ./GL/gl3w.c
 CXXFLAGS += -I./GL/gl3w -DIMGUI_IMPL_OPENGL_LOADER_GL3W
 
-## Using OpenGL loader: glew
-## (This assumes a system-wide installation)
-# CXXFLAGS += -lGLEW -DIMGUI_IMPL_OPENGL_LOADER_GLEW
-
 ##---------------------------------------------------------------------
 ## BUILD FLAGS PER PLATFORM
 ##---------------------------------------------------------------------
@@ -33,6 +29,17 @@ ifeq ($(UNAME_S), Linux) #LINUX
 	CXXFLAGS += `pkg-config --cflags glfw3`
 	CFLAGS = $(CXXFLAGS)
 endif
+ifeq ($(UNAME_S), Darwin) #APPLE
+	ECHO_MESSAGE = "Mac OS X"
+	LIBS += -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
+	LIBS += -L/usr/local/lib -L/opt/local/lib
+	# LIBS += -lglfw3
+	LIBS += -lglfw
+
+	CXXFLAGS += -I/usr/local/include -I/opt/local/include
+	CFLAGS = $(CXXFLAGS)
+endif
+
 
 ##---------------------------------------------------------------------
 ## BUILD RULES

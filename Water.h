@@ -1,6 +1,10 @@
+#include <vector>
+
 class Water
 {
-    public:
-    int numerOfGlasses;
-    void addGlasses(int newGlass);
+public:
+    Water();
+    std::vector<int> glassesOfWaterVolume;
+    void addGlasses(int glass);
+    int sumAllGlassesVolume();
 };

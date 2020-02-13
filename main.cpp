@@ -4,19 +4,10 @@
 #include <stdio.h>
 #include <iostream>
 #include "BMR.h"
+#include "Water.h"
+#include "Food.h"
 
-#if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
 #include "GL/gl3w.h" // Initialize with gl3wInit()
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING)
-#define GLFW_INCLUDE_NONE        // GLFW including OpenGL headers causes ambiguity or multiple definition errors.
-#include <glbinding/glbinding.h> // Initialize with glbinding::initialize()
-#include <glbinding/gl/gl.h>
-using namespace gl;
-#else
-#include IMGUI_IMPL_OPENGL_LOADER_CUSTOM
-#endif
-
-// Include glfw3.h after our OpenGL definitions
 #include <GLFW/glfw3.h>
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
@@ -35,9 +26,19 @@ int main(int, char **)
     if (!glfwInit())
         return 1;
 
+#if __APPLE__
+    // Setup GLFW context for MacOS
+    const char *glsl_version = "#version 150";
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#else
+    // Setup GLFW context for other OS's
     const char *glsl_version = "#version 130";
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+#endif
 
     // Create window with graphics context
     GLFWwindow *window = glfwCreateWindow(1280, 720, "Health Planner", NULL, NULL);
@@ -46,7 +47,7 @@ int main(int, char **)
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // Enable vsync
 
-    // Initialize OpenGL loader
+// Initialize OpenGL loader
 #if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
     bool err = gl3wInit() != 0;
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING)
@@ -74,6 +75,12 @@ int main(int, char **)
     bool errorWindowBmi = false;
     bool showBmrResultWindow = false;
     bool errorWindowBmr = false;
+
+    Water water;
+    BMI bmi;
+    BMR bmr;
+    Food food;
+
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     while (!glfwWindowShouldClose(window))
@@ -86,8 +93,7 @@ int main(int, char **)
         ImGui::NewFrame();
 
         {
-            ImGui::Begin("Calculating BMI"); // Create a window and append into it.
-            BMI bmi;
+            ImGui::Begin("Calculating BMI");
 
             ImGui::Text("Enter your height:");
             static char heightEnteredChar[64] = "";
@@ -144,7 +150,6 @@ int main(int, char **)
 
         {
             ImGui::Begin("Calculating BMR");
-            BMR bmr;
 
             ImGui::Text("Enter your height:");
             static char heightEnteredChar[64] = "";
@@ -221,6 +226,64 @@ int main(int, char **)
             ImGui::Checkbox("Day 5", &checkBox5);
             ImGui::Checkbox("Day 6", &checkBox6);
             ImGui::Checkbox("Day 7", &checkBox7);
+
+            ImGui::End();
+        }
+
+        {
+            ImGui::Begin("Water Hydration");
+
+            ImGui::Text("Add glass of water:");
+            static char volumeInput[64] = "";
+            ImGui::InputText("volume", volumeInput, 64);
+
+            int sumOfWaterVolume;
+
+            if (ImGui::Button("Add"))
+            {
+                int volume = atoi(volumeInput);
+                water.addGlasses(volume);
+                sumOfWaterVolume = water.sumAllGlassesVolume();
+            }
+
+            ImGui::Text("Water drunk: %i", sumOfWaterVolume);
+            ImGui::End();
+        }
+
+        {
+            ImGui::Begin("Food");
+
+            ImGui::Text("Dish name:");
+            static char dishNameInput[64] = "";
+            ImGui::InputText("name", dishNameInput, 64);
+
+            ImGui::Text("Dish proteins:");
+            static char dishProteinsInput[64] = "";
+            ImGui::InputText("proteins", dishProteinsInput, 64);
+
+            ImGui::Text("Dish carbs:");
+            static char dishCarbsInput[64] = "";
+            ImGui::InputText("carbs", dishCarbsInput, 64);
+
+            ImGui::Text("Dish fat:");
+            static char dishFatInput[64] = "";
+            ImGui::InputText("fat", dishFatInput, 64);
+
+            if (ImGui::Button("Add"))
+            {
+                int dishProtein = atoi(dishProteinsInput);
+                int dishCarbs = atoi(dishCarbsInput);
+                int dishFat = atoi(dishFatInput);
+
+                food.addDish(dishNameInput, dishProtein, dishCarbs, dishFat);
+            }
+
+            ImGui::Text("name: calories:");
+
+            for (int i = 0; i < food.getAllDishes().size(); i++)
+            {
+                ImGui::Text("%s %i", food.getAllDishes()[i].getDishName(), food.getAllDishes()[i].getDishCalories());
+            }
 
             ImGui::End();
         }
