@@ -175,7 +175,7 @@ int main(int, char **)
 
                 try
                 {
-                    if (height <= 0 || weight < 0 || age < 0)
+                    if (height <= 0 || weight <= 0 || age <= 0)
                     {
                         throw "error2";
                     }
@@ -247,7 +247,7 @@ int main(int, char **)
                 sumOfWaterVolume = water.sumAllGlassesVolume();
             }
 
-            ImGui::Text("Water drunk: %i", sumOfWaterVolume);
+            ImGui::Text("Water drank: %i", sumOfWaterVolume);
             ImGui::End();
         }
 

@@ -12,4 +12,7 @@ private:
 public:
     Dish(int protein, int carbs, int fat);
     int getDishCalories();
+
+    Dish() {}
+    ~Dish() {}
 };
