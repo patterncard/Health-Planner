@@ -3,14 +3,14 @@
 - [ ] 4 klasy
   - [ ] picie wody
     - [x] funkcjonalność
-    - [ ] error handling
   - [ ] posiłki
+    - [x] funkcjonalność
+    - [ ] bugfixes
   - [ ] danie (dish)
-  - [ ] meditation?
-  - [ ] plot z wagą
-- [ ] templaty
-- [ ] refactor z trzymaniem state'u okienek + ich errorów w klasach
-- [ ] budowanie plików do osobnego katalogu dist
+    - [x] funkcjonalność
+    - [ ] bugfixes
+  - [x] trainingTime
+- [x] templaty
 
 ### knowledge
 

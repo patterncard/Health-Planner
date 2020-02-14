@@ -1,4 +1,5 @@
 #include "Water.h"
+#include "Addition.h"
 #include <iostream>
 
 Water::Water()
@@ -13,10 +14,5 @@ void Water::addGlasses(int glass)
 
 int Water::sumAllGlassesVolume()
 {
-    int volume = 0;
-    for (int i = 0; i < glassesOfWaterVolume.size(); i++)
-    {
-        volume += glassesOfWaterVolume[i];
-    }
-    return volume;
+    return SumArray(glassesOfWaterVolume);
 };

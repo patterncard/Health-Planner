@@ -6,6 +6,7 @@
 #include "BMR.h"
 #include "Water.h"
 #include "Food.h"
+#include "Workout.h"
 
 #include "GL/gl3w.h" // Initialize with gl3wInit()
 #include <GLFW/glfw3.h>
@@ -80,6 +81,7 @@ int main(int, char **)
     BMI bmi;
     BMR bmr;
     Food food;
+    Workout workout;
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -210,23 +212,22 @@ int main(int, char **)
         }
 
         {
-            static bool checkBox1 = false;
-            static bool checkBox2 = false;
-            static bool checkBox3 = false;
-            static bool checkBox4 = false;
-            static bool checkBox5 = false;
-            static bool checkBox6 = false;
-            static bool checkBox7 = false;
+            ImGui::Begin("Workout Tracking");
 
-            ImGui::Begin("Tracking training");
-            ImGui::Checkbox("Day 1", &checkBox1);
-            ImGui::Checkbox("Day 2", &checkBox2);
-            ImGui::Checkbox("Day 3", &checkBox3);
-            ImGui::Checkbox("Day 4", &checkBox4);
-            ImGui::Checkbox("Day 5", &checkBox5);
-            ImGui::Checkbox("Day 6", &checkBox6);
-            ImGui::Checkbox("Day 7", &checkBox7);
+            ImGui::Text("Add time spend on training:");
+            static char timeInput[64] = "";
+            ImGui::InputText("min", timeInput, 64);
 
+            double sumOfTimeTrained;
+
+            if (ImGui::Button("Add"))
+            {
+                double volume = atof(timeInput);
+                workout.addRecord(volume);
+                sumOfTimeTrained = workout.sumAllTimeSpent();
+            }
+
+            ImGui::Text("Time spent on training: %f", sumOfTimeTrained);
             ImGui::End();
         }
 
@@ -235,7 +236,7 @@ int main(int, char **)
 
             ImGui::Text("Add glass of water:");
             static char volumeInput[64] = "";
-            ImGui::InputText("volume", volumeInput, 64);
+            ImGui::InputText("ml", volumeInput, 64);
 
             int sumOfWaterVolume;
 
