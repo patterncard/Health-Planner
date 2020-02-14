@@ -6,9 +6,9 @@ Food::Food()
     std::cout << "Initialized Food Module" << std::endl;
 }
 
-void Food::addDish(char *name, int protein, int carbs, int fat)
+void Food::addDish(int protein, int carbs, int fat)
 {
-    Dish dish(name, protein, carbs, fat);
+    Dish dish(protein, carbs, fat);
     dishes.push_back(dish);
 };
 

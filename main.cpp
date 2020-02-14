@@ -216,7 +216,7 @@ int main(int, char **)
 
             ImGui::Text("Add time spend on training:");
             static char timeInput[64] = "";
-            ImGui::InputText("min", timeInput, 64);
+            ImGui::InputText("h", timeInput, 64);
 
             double sumOfTimeTrained;
 
@@ -252,21 +252,17 @@ int main(int, char **)
         }
 
         {
-            ImGui::Begin("Food");
-
-            ImGui::Text("Dish name:");
-            static char dishNameInput[64] = "";
-            ImGui::InputText("name", dishNameInput, 64);
+            ImGui::Begin("Calorie Tracking");
 
             ImGui::Text("Dish proteins:");
             static char dishProteinsInput[64] = "";
             ImGui::InputText("proteins", dishProteinsInput, 64);
 
-            ImGui::Text("Dish carbs:");
+            ImGui::Text("Dish carbohydrates:");
             static char dishCarbsInput[64] = "";
             ImGui::InputText("carbs", dishCarbsInput, 64);
 
-            ImGui::Text("Dish fat:");
+            ImGui::Text("Dish fats:");
             static char dishFatInput[64] = "";
             ImGui::InputText("fat", dishFatInput, 64);
 
@@ -276,14 +272,14 @@ int main(int, char **)
                 int dishCarbs = atoi(dishCarbsInput);
                 int dishFat = atoi(dishFatInput);
 
-                food.addDish(dishNameInput, dishProtein, dishCarbs, dishFat);
+                food.addDish(dishProtein, dishCarbs, dishFat);
             }
 
-            ImGui::Text("name: calories:");
+            ImGui::Text("calories:");
 
             for (int i = 0; i < food.getAllDishes().size(); i++)
             {
-                ImGui::Text("%s %i", food.getAllDishes()[i].getDishName(), food.getAllDishes()[i].getDishCalories());
+                ImGui::Text("%i", food.getAllDishes()[i].getDishCalories());
             }
 
             ImGui::End();
