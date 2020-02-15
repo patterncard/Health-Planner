@@ -1,0 +1,2 @@
+- [ ] i/o streams - zapisywanie i odczytywanie do pliku
+- [ ] inheritance - klasa dni, baza danych
