@@ -97,22 +97,38 @@ int main(int, char **)
 
         {
             ImGui::Begin("Week");
+            ImGui::Columns(7, "days7");
 
             ImVec2 buttonSize(160, 50);
 
             ImGui::Button("Monday", buttonSize);
-            ImGui::SameLine();
+            ImGui::NextColumn();
             ImGui::Button("Tuesday", buttonSize);
-            ImGui::SameLine();
+            ImGui::NextColumn();
             ImGui::Button("Wednesday", buttonSize);
-            ImGui::SameLine();
+            ImGui::NextColumn();
             ImGui::Button("Thursday", buttonSize);
-            ImGui::SameLine();
+            ImGui::NextColumn();
             ImGui::Button("Friday", buttonSize);
-            ImGui::SameLine();
+            ImGui::NextColumn();
             ImGui::Button("Saturday", buttonSize);
-            ImGui::SameLine();
+            ImGui::NextColumn();
             ImGui::Button("Sunday", buttonSize);
+            ImGui::NextColumn();
+
+            ImGui::Separator();
+
+            ImGui::Text("BMI: ");
+            ImGui::NextColumn();
+            ImGui::Text("BMR: ");
+            ImGui::NextColumn();
+            ImGui::Text("Calories: ");
+            ImGui::NextColumn();
+            ImGui::Text("Water: ");
+            ImGui::NextColumn();
+            ImGui::Text("Workout: ");
+
+            ImGui::Columns(1);
 
             ImGui::End();
         }
