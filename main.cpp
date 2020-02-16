@@ -3,6 +3,7 @@
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include "BMR.h"
 #include "Water.h"
 #include "Food.h"
