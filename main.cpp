@@ -96,6 +96,28 @@ int main(int, char **)
         ImGui::NewFrame();
 
         {
+            ImGui::Begin("Week");
+
+            ImVec2 buttonSize(160, 50);
+
+            ImGui::Button("Monday", buttonSize);
+            ImGui::SameLine();
+            ImGui::Button("Tuesday", buttonSize);
+            ImGui::SameLine();
+            ImGui::Button("Wednesday", buttonSize);
+            ImGui::SameLine();
+            ImGui::Button("Thursday", buttonSize);
+            ImGui::SameLine();
+            ImGui::Button("Friday", buttonSize);
+            ImGui::SameLine();
+            ImGui::Button("Saturday", buttonSize);
+            ImGui::SameLine();
+            ImGui::Button("Sunday", buttonSize);
+
+            ImGui::End();
+        }
+
+        {
             ImGui::Begin("Calculating BMI");
 
             ImGui::Text("Enter your height:");
