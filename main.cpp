@@ -4,10 +4,12 @@
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <nlohmann/json.hpp>
 #include "BMR.h"
 #include "Water.h"
 #include "Food.h"
 #include "Workout.h"
+#include "ToFile.h"
 
 #include "GL/gl3w.h" // Initialize with gl3wInit()
 #include <GLFW/glfw3.h>
@@ -83,6 +85,7 @@ int main(int, char **)
     BMR bmr;
     Food food;
     Workout workout;
+    ToFile file;
 
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
@@ -118,15 +121,41 @@ int main(int, char **)
 
             ImGui::Separator();
 
-            ImGui::Text("BMI: ");
+            //reading form file
+            double someData;
+            ImGui::Text("BMI: %d", someData);
+            if (ImGui::Button("Clean"))
+            {
+                //Deleting from file
+            }
             ImGui::NextColumn();
+
             ImGui::Text("BMR: ");
+            if (ImGui::Button("Clean"))
+            {
+                //Deleting from file
+            }
             ImGui::NextColumn();
+
             ImGui::Text("Calories: ");
+            if (ImGui::Button("Clean"))
+            {
+                //Deleting from file
+            }
             ImGui::NextColumn();
+
             ImGui::Text("Water: ");
+            if (ImGui::Button("Clean"))
+            {
+                //Deleting from file
+            }
             ImGui::NextColumn();
+
             ImGui::Text("Workout: ");
+            if (ImGui::Button("Clean"))
+            {
+                //Deleting from file
+            }
 
             ImGui::Columns(1);
 
@@ -182,6 +211,12 @@ int main(int, char **)
                 ImGui::Text("Your BMI is: ");
                 int bmiResultInt = (double)bmiResultDouble;
                 ImGui::Text("%i", bmiResultInt);
+
+                if (ImGui::Button("Save"))
+                {
+                    //writing to file
+                }
+
                 if (ImGui::Button("Close Me"))
                     showBmiResultWindow = false;
                 ImGui::End();
@@ -243,6 +278,12 @@ int main(int, char **)
                 ImGui::Text("Your BMR is: ");
                 int bmrResultInt = (double)bmrResultDouble;
                 ImGui::Text("%i", bmrResultInt);
+
+                if (ImGui::Button("Save"))
+                {
+                    //writing to file
+                }
+
                 if (ImGui::Button("Close Me"))
                     showBmrResultWindow = false;
                 ImGui::End();
@@ -267,6 +308,12 @@ int main(int, char **)
             }
 
             ImGui::Text("Time spent on training: %f", sumOfTimeTrained);
+
+            if (ImGui::Button("Save"))
+            {
+                //writing to file
+            }
+
             ImGui::End();
         }
 
@@ -287,6 +334,12 @@ int main(int, char **)
             }
 
             ImGui::Text("Water drank: %i", sumOfWaterVolume);
+
+            if (ImGui::Button("Save"))
+            {
+                file.saveToFile(sumOfWaterVolume);
+            }
+
             ImGui::End();
         }
 
@@ -319,6 +372,11 @@ int main(int, char **)
             for (int i = 0; i < food.getAllDishes().size(); i++)
             {
                 ImGui::Text("%i", food.getAllDishes()[i].getDishCalories());
+            }
+
+            if (ImGui::Button("Save"))
+            {
+                //writing to file
             }
 
             ImGui::End();
