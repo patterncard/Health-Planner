@@ -1,0 +1,51 @@
+{
+  "mon": {
+    "bmi": 0,
+    "bmr": 0,
+    "calories": 0,
+    "water": 0,
+    "training": 0.0
+  },
+  "tue": {
+    "bmi": 0,
+    "bmr": 0,
+    "calories": 0,
+    "water": 0,
+    "training": 0.0
+  },
+  "wed": {
+    "bmi": 0,
+    "bmr": 0,
+    "calories": 0,
+    "water": 0,
+    "training": 0.0
+  },
+  "thu": {
+    "bmi": 0,
+    "bmr": 0,
+    "calories": 0,
+    "water": 0,
+    "training": 0.0
+  },
+  "fri": {
+    "bmi": 0,
+    "bmr": 0,
+    "calories": 0,
+    "water": 0,
+    "training": 0.0
+  },
+  "sat": {
+    "bmi": 0,
+    "bmr": 0,
+    "calories": 0,
+    "water": 0,
+    "training": 0.0
+  },
+  "sun": {
+    "bmi": 0,
+    "bmr": 0,
+    "calories": 0,
+    "water": 0,
+    "training": 0.0
+  }
+}

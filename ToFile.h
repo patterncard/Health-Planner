@@ -1,3 +1,5 @@
+#include <string>
+
 class ToFile
 {
 public:
@@ -9,5 +11,6 @@ public:
     int water;
     double workout;
 
-    void saveToFile(int data);
+    void saveToFileInt(std::string day, std::string indicator, int value);
+    void saveToFileDouble(std::string day, std::string indicator, double value);
 };

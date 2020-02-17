@@ -14,6 +14,8 @@
 #include "GL/gl3w.h" // Initialize with gl3wInit()
 #include <GLFW/glfw3.h>
 
+using json = nlohmann::json;
+
 #if defined(_MSC_VER) && (_MSC_VER >= 1900) && !defined(IMGUI_DISABLE_WIN32_FUNCTIONS)
 #pragma comment(lib, "legacy_stdio_definitions")
 #endif
@@ -45,7 +47,7 @@ int main(int, char **)
 #endif
 
     // Create window with graphics context
-    GLFWwindow *window = glfwCreateWindow(1280, 720, "Health Planner", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(1500, 1000, "Health Planner", NULL, NULL);
     if (window == NULL)
         return 1;
     glfwMakeContextCurrent(window);
@@ -100,10 +102,10 @@ int main(int, char **)
 
         {
             ImGui::Begin("Week");
-            ImGui::Columns(7, "days7");
+            ImGui::Columns(9, "days");
 
-            ImVec2 buttonSize(160, 50);
-
+            ImVec2 buttonSize(150, 50);
+            ImGui::NextColumn();
             ImGui::Button("Monday", buttonSize);
             ImGui::NextColumn();
             ImGui::Button("Tuesday", buttonSize);
@@ -119,39 +121,41 @@ int main(int, char **)
             ImGui::Button("Sunday", buttonSize);
             ImGui::NextColumn();
 
+            ImGui::NextColumn();
+
+            ImGui::Text("BMI");
+            if (ImGui::Button("Clean"))
+            {
+                //Deleting from file
+            }
+
             ImGui::Separator();
 
-            //reading form file
-            double someData;
-            ImGui::Text("BMI: %d", someData);
+            ImGui::Text("BMR");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
             }
-            ImGui::NextColumn();
 
-            ImGui::Text("BMR: ");
+            ImGui::Separator();
+
+            ImGui::Text("Calories");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
             }
-            ImGui::NextColumn();
 
-            ImGui::Text("Calories: ");
+            ImGui::Separator();
+
+            ImGui::Text("Water");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
             }
-            ImGui::NextColumn();
 
-            ImGui::Text("Water: ");
-            if (ImGui::Button("Clean"))
-            {
-                //Deleting from file
-            }
-            ImGui::NextColumn();
+            ImGui::Separator();
 
-            ImGui::Text("Workout: ");
+            ImGui::Text("Workout");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
@@ -337,7 +341,7 @@ int main(int, char **)
 
             if (ImGui::Button("Save"))
             {
-                file.saveToFile(sumOfWaterVolume);
+                file.saveToFileInt("mon", "calories", 123);
             }
 
             ImGui::End();
