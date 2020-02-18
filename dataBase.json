@@ -1,9 +1,1 @@
-{
-  "fri": { "bmi": 0, "bmr": 0, "calories": 0, "training": 0.0, "water": 0 },
-  "mon": { "bmi": 0, "bmr": 0, "calories": 123, "training": 0.0, "water": 0 },
-  "sat": { "bmi": 0, "bmr": 0, "calories": 0, "training": 0.0, "water": 0 },
-  "sun": { "bmi": 0, "bmr": 0, "calories": 0, "training": 0.0, "water": 0 },
-  "thu": { "bmi": 0, "bmr": 0, "calories": 0, "training": 0.0, "water": 0 },
-  "tue": { "bmi": 0, "bmr": 0, "calories": 0, "training": 0.0, "water": 123 },
-  "wed": { "bmi": 0, "bmr": 0, "calories": 0, "training": 0.0, "water": 0 }
-}
+{"":{"calories":123},"fri":{"bmi":0,"bmr":0,"calories":0,"training":0.0,"water":0},"mon":{"bmi":0,"bmr":0,"calories":123,"training":0.0,"water":0},"sat":{"bmi":0,"bmr":0,"calories":0,"training":0.0,"water":0},"sun":{"bmi":0,"bmr":0,"calories":0,"training":0.0,"water":0},"thu":{"bmi":0,"bmr":0,"calories":0,"training":0.0,"water":0},"tue":{"bmi":0,"bmr":0,"calories":123,"training":0.0,"water":123},"wed":{"bmi":0,"bmr":0,"calories":0,"training":0.0,"water":0}}

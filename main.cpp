@@ -3,6 +3,7 @@
 #include "imgui_impl_opengl3.h"
 #include <stdio.h>
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <nlohmann/json.hpp>
 #include "BMR.h"
@@ -81,6 +82,7 @@ int main(int, char **)
     bool errorWindowBmi = false;
     bool showBmrResultWindow = false;
     bool errorWindowBmr = false;
+    bool testWindow = false;
 
     Water water;
     BMI bmi;
@@ -102,7 +104,7 @@ int main(int, char **)
 
         {
             ImGui::Begin("Week");
-            ImGui::Columns(9, "days");
+            ImGui::Columns(8, "days");
 
             ImVec2 buttonSize(150, 50);
             ImGui::NextColumn();
@@ -121,13 +123,28 @@ int main(int, char **)
             ImGui::Button("Sunday", buttonSize);
             ImGui::NextColumn();
 
-            ImGui::NextColumn();
+            ImGui::Separator();
 
             ImGui::Text("BMI");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
             }
+            ImGui::NextColumn();
+            ImGui::Text("1");
+            ImGui::NextColumn();
+            ImGui::Text("2");
+            ImGui::NextColumn();
+            ImGui::Text("3");
+            ImGui::NextColumn();
+            ImGui::Text("4");
+            ImGui::NextColumn();
+            ImGui::Text("5");
+            ImGui::NextColumn();
+            ImGui::Text("6");
+            ImGui::NextColumn();
+            ImGui::Text("7");
+            ImGui::NextColumn();
 
             ImGui::Separator();
 
@@ -136,6 +153,21 @@ int main(int, char **)
             {
                 //Deleting from file
             }
+            ImGui::NextColumn();
+            ImGui::Text("11");
+            ImGui::NextColumn();
+            ImGui::Text("22");
+            ImGui::NextColumn();
+            ImGui::Text("33");
+            ImGui::NextColumn();
+            ImGui::Text("44");
+            ImGui::NextColumn();
+            ImGui::Text("55");
+            ImGui::NextColumn();
+            ImGui::Text("66");
+            ImGui::NextColumn();
+            ImGui::Text("77");
+            ImGui::NextColumn();
 
             ImGui::Separator();
 
@@ -144,6 +176,21 @@ int main(int, char **)
             {
                 //Deleting from file
             }
+            ImGui::NextColumn();
+            ImGui::Text("111");
+            ImGui::NextColumn();
+            ImGui::Text("222");
+            ImGui::NextColumn();
+            ImGui::Text("333");
+            ImGui::NextColumn();
+            ImGui::Text("444");
+            ImGui::NextColumn();
+            ImGui::Text("555");
+            ImGui::NextColumn();
+            ImGui::Text("666");
+            ImGui::NextColumn();
+            ImGui::Text("777");
+            ImGui::NextColumn();
 
             ImGui::Separator();
 
@@ -152,6 +199,21 @@ int main(int, char **)
             {
                 //Deleting from file
             }
+            ImGui::NextColumn();
+            ImGui::Text("1111");
+            ImGui::NextColumn();
+            ImGui::Text("2222");
+            ImGui::NextColumn();
+            ImGui::Text("3333");
+            ImGui::NextColumn();
+            ImGui::Text("4444");
+            ImGui::NextColumn();
+            ImGui::Text("5555");
+            ImGui::NextColumn();
+            ImGui::Text("6666");
+            ImGui::NextColumn();
+            ImGui::Text("7777");
+            ImGui::NextColumn();
 
             ImGui::Separator();
 
@@ -160,6 +222,21 @@ int main(int, char **)
             {
                 //Deleting from file
             }
+            ImGui::NextColumn();
+            ImGui::Text("11111");
+            ImGui::NextColumn();
+            ImGui::Text("22222");
+            ImGui::NextColumn();
+            ImGui::Text("33333");
+            ImGui::NextColumn();
+            ImGui::Text("44444");
+            ImGui::NextColumn();
+            ImGui::Text("55555");
+            ImGui::NextColumn();
+            ImGui::Text("66666");
+            ImGui::NextColumn();
+            ImGui::Text("77777");
+            ImGui::NextColumn();
 
             ImGui::Columns(1);
 
@@ -183,6 +260,9 @@ int main(int, char **)
             {
                 double height = atoi(heightEnteredChar);
                 double weight = atoi(weightEnteredChar);
+
+                // std::cout << height << std::endl;
+                // std::cout << "bmi pressed" << std::endl;
 
                 try
                 {
@@ -337,12 +417,52 @@ int main(int, char **)
                 sumOfWaterVolume = water.sumAllGlassesVolume();
             }
 
+            std::cout << sumOfWaterVolume << std::endl;
+
             ImGui::Text("Water drank: %i", sumOfWaterVolume);
 
-            if (ImGui::Button("Save"))
-            {
-                file.saveToFileInt("mon", "calories", 123);
-            }
+            // std::string day;
+            // ImGui::Text("Choose day");
+            // if (ImGui::SmallButton("mon"))
+            // {
+            //     day = "mon";
+            // }
+            // if (ImGui::SmallButton("tue"))
+            // {
+            //     day = "tue";
+            //     std::cout << "in small button: " << day << std::endl;
+            //     file.saveToFileInt(day, "calories", 123);
+            //     std::cout << "in small button saved: " << day << std::endl;
+            // }
+            // if (ImGui::SmallButton("wed"))
+            // {
+            //     day = "wed";
+            // }
+            // if (ImGui::SmallButton("thu"))
+            // {
+            //     day = "thu";
+            // }
+            // if (ImGui::SmallButton("fri"))
+            // {
+            //     day = "fri";
+            // }
+            // if (ImGui::SmallButton("sat"))
+            // {
+            //     day = "sat";
+            // }
+            // if (ImGui::SmallButton("sun"))
+            // {
+            //     day = "sun";
+            // }
+
+            // std::cout << "outside small button: " << day << std::endl;
+            // ImGui::Text("%s", day);
+
+            // if (ImGui::Button("Save"))
+            // {
+            //     std::cout << "in button save: " << day << std::endl;
+            //     file.saveToFileInt(day, "calories", 123);
+            // }
 
             ImGui::End();
         }

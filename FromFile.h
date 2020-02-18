@@ -1,11 +1,9 @@
-#include <iostream>
-#include <fstream>
+#include <string>
+#include <nlohmann/json.hpp>
 
 class FromFile
 {
 public:
-    bool day;
-    int data;
-
-    void readFromFile();
+    void readFromFileInt(json dataBase);
+    void readFromFileDouble(json dataBase);
 };
