@@ -150,7 +150,7 @@ int main(int, char **)
 
             ImGui::Separator();
 
-            ImGui::Text("BMI");
+            ImGui::Text("BMI [index]");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
@@ -174,6 +174,8 @@ int main(int, char **)
             ImGui::Separator();
 
             ImGui::Text("BMR");
+            ImGui::SameLine(20);
+            ImGui::Text("[index]");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
@@ -196,7 +198,7 @@ int main(int, char **)
 
             ImGui::Separator();
 
-            ImGui::Text("Calories");
+            ImGui::Text("Calories [kcal]");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
@@ -219,7 +221,7 @@ int main(int, char **)
 
             ImGui::Separator();
 
-            ImGui::Text("Water");
+            ImGui::Text("Water [ml]");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
@@ -242,7 +244,7 @@ int main(int, char **)
 
             ImGui::Separator();
 
-            ImGui::Text("Workout");
+            ImGui::Text("Workout [h]");
             if (ImGui::Button("Clean"))
             {
                 //Deleting from file
@@ -387,7 +389,7 @@ int main(int, char **)
 
                 if (ImGui::Button("Save"))
                 {
-                    //writing to file
+                    file.saveToFileInt(day, "bmr", bmrResultInt);
                 }
 
                 if (ImGui::Button("Close Me"))
@@ -417,7 +419,7 @@ int main(int, char **)
 
             if (ImGui::Button("Save"))
             {
-                //writing to file
+                file.saveToFileDouble(day, "training", sumOfTimeTrained);
             }
 
             ImGui::End();
