@@ -2,7 +2,7 @@ EXE = health
 SOURCES = main.cpp
 SOURCES += ./imgui_impl_glfw.cpp ./imgui_impl_opengl3.cpp
 SOURCES += ./imgui.cpp ./imgui_demo.cpp ./imgui_draw.cpp ./imgui_widgets.cpp
-SOURCES += ./BMI.cpp ./BMR.cpp ./Water.cpp ./Dish.cpp ./Food.cpp ./Workout.cpp ./ToFile.cpp
+SOURCES += ./BMI.cpp ./BMR.cpp ./Water.cpp ./Dish.cpp ./Food.cpp ./Workout.cpp ./ToFile.cpp ./FromFile.cpp
 OBJS = $(addsuffix .o, $(basename $(notdir $(SOURCES))))
 UNAME_S := $(shell uname -s)
 

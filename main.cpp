@@ -11,6 +11,7 @@
 #include "Food.h"
 #include "Workout.h"
 #include "ToFile.h"
+#include "FromFile.h"
 
 #include "GL/gl3w.h" // Initialize with gl3wInit()
 #include <GLFW/glfw3.h>
@@ -421,48 +422,48 @@ int main(int, char **)
 
             ImGui::Text("Water drank: %i", sumOfWaterVolume);
 
-            // std::string day;
-            // ImGui::Text("Choose day");
-            // if (ImGui::SmallButton("mon"))
-            // {
-            //     day = "mon";
-            // }
-            // if (ImGui::SmallButton("tue"))
-            // {
-            //     day = "tue";
-            //     std::cout << "in small button: " << day << std::endl;
-            //     file.saveToFileInt(day, "calories", 123);
-            //     std::cout << "in small button saved: " << day << std::endl;
-            // }
-            // if (ImGui::SmallButton("wed"))
-            // {
-            //     day = "wed";
-            // }
-            // if (ImGui::SmallButton("thu"))
-            // {
-            //     day = "thu";
-            // }
-            // if (ImGui::SmallButton("fri"))
-            // {
-            //     day = "fri";
-            // }
-            // if (ImGui::SmallButton("sat"))
-            // {
-            //     day = "sat";
-            // }
-            // if (ImGui::SmallButton("sun"))
-            // {
-            //     day = "sun";
-            // }
+            std::string day;
+            ImGui::Text("Choose day");
+            if (ImGui::SmallButton("mon"))
+            {
+                day = "mon";
+            }
+            if (ImGui::SmallButton("tue"))
+            {
+                day = "tue";
+                std::cout << "in small button: " << day << std::endl;
+                file.saveToFileInt(day, "calories", 123);
+                std::cout << "in small button saved: " << day << std::endl;
+            }
+            if (ImGui::SmallButton("wed"))
+            {
+                day = "wed";
+            }
+            if (ImGui::SmallButton("thu"))
+            {
+                day = "thu";
+            }
+            if (ImGui::SmallButton("fri"))
+            {
+                day = "fri";
+            }
+            if (ImGui::SmallButton("sat"))
+            {
+                day = "sat";
+            }
+            if (ImGui::SmallButton("sun"))
+            {
+                day = "sun";
+            }
 
-            // std::cout << "outside small button: " << day << std::endl;
-            // ImGui::Text("%s", day);
+            std::cout << "outside small button: " << day << std::endl;
+            ImGui::Text("%s", day);
 
-            // if (ImGui::Button("Save"))
-            // {
-            //     std::cout << "in button save: " << day << std::endl;
-            //     file.saveToFileInt(day, "calories", 123);
-            // }
+            if (ImGui::Button("Save"))
+            {
+                std::cout << "in button save: " << day << std::endl;
+                file.saveToFileInt(day, "calories", 123);
+            }
 
             ImGui::End();
         }

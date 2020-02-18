@@ -20,8 +20,6 @@ void ToFile::saveToFileInt(std::string day, std::string indicator, int value)
     database << healthDB;
     database.close();
 
-    // database << healthDB;
-
     std::cout << healthDB << std::endl; //This will print the entire json object.
 }
 

@@ -4,6 +4,6 @@
 class FromFile
 {
 public:
-    void readFromFileInt(json dataBase);
-    void readFromFileDouble(json dataBase);
+    std::string readFromFileInt(std::string day, std::string indicator);
+    std::string readFromFileDouble(std::string day, std::string indicator);
 };
