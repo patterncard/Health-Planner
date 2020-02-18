@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
 #include <nlohmann/json.hpp>
 #include "BMR.h"
 #include "Water.h"
@@ -92,6 +93,8 @@ int main(int, char **)
     Workout workout;
     ToFile file;
 
+    std::string day;
+
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     while (!glfwWindowShouldClose(window))
@@ -109,19 +112,40 @@ int main(int, char **)
 
             ImVec2 buttonSize(150, 50);
             ImGui::NextColumn();
-            ImGui::Button("Monday", buttonSize);
+            if (ImGui::Button("Monday", buttonSize))
+            {
+                day = "mon";
+            }
             ImGui::NextColumn();
-            ImGui::Button("Tuesday", buttonSize);
+            if (ImGui::Button("Tuesday", buttonSize))
+            {
+                day = "tue";
+            }
             ImGui::NextColumn();
-            ImGui::Button("Wednesday", buttonSize);
+            if (ImGui::Button("Wednesday", buttonSize))
+            {
+                day = "wed";
+            }
             ImGui::NextColumn();
-            ImGui::Button("Thursday", buttonSize);
+            if (ImGui::Button("Thursday", buttonSize))
+            {
+                day = "thu";
+            }
             ImGui::NextColumn();
-            ImGui::Button("Friday", buttonSize);
+            if (ImGui::Button("Friday", buttonSize))
+            {
+                day = "fri";
+            }
             ImGui::NextColumn();
-            ImGui::Button("Saturday", buttonSize);
+            if (ImGui::Button("Saturday", buttonSize))
+            {
+                day = "sat";
+            }
             ImGui::NextColumn();
-            ImGui::Button("Sunday", buttonSize);
+            if (ImGui::Button("Sunday", buttonSize))
+            {
+                day = "sun";
+            }
             ImGui::NextColumn();
 
             ImGui::Separator();
@@ -262,9 +286,6 @@ int main(int, char **)
                 double height = atoi(heightEnteredChar);
                 double weight = atoi(weightEnteredChar);
 
-                // std::cout << height << std::endl;
-                // std::cout << "bmi pressed" << std::endl;
-
                 try
                 {
                     if (height <= 0 || weight <= 0)
@@ -299,7 +320,7 @@ int main(int, char **)
 
                 if (ImGui::Button("Save"))
                 {
-                    //writing to file
+                    file.saveToFileInt(day, "bmi", bmiResultInt);
                 }
 
                 if (ImGui::Button("Close Me"))
@@ -407,7 +428,7 @@ int main(int, char **)
 
             ImGui::Text("Add glass of water:");
             static char volumeInput[64] = "";
-            ImGui::InputText("ml", volumeInput, 64);
+            ImGui::InputText("volume", volumeInput, 64);
 
             int sumOfWaterVolume;
 
@@ -418,53 +439,7 @@ int main(int, char **)
                 sumOfWaterVolume = water.sumAllGlassesVolume();
             }
 
-            std::cout << sumOfWaterVolume << std::endl;
-
-            ImGui::Text("Water drank: %i", sumOfWaterVolume);
-
-            std::string day;
-            ImGui::Text("Choose day");
-            if (ImGui::SmallButton("mon"))
-            {
-                day = "mon";
-            }
-            if (ImGui::SmallButton("tue"))
-            {
-                day = "tue";
-                std::cout << "in small button: " << day << std::endl;
-                file.saveToFileInt(day, "calories", 123);
-                std::cout << "in small button saved: " << day << std::endl;
-            }
-            if (ImGui::SmallButton("wed"))
-            {
-                day = "wed";
-            }
-            if (ImGui::SmallButton("thu"))
-            {
-                day = "thu";
-            }
-            if (ImGui::SmallButton("fri"))
-            {
-                day = "fri";
-            }
-            if (ImGui::SmallButton("sat"))
-            {
-                day = "sat";
-            }
-            if (ImGui::SmallButton("sun"))
-            {
-                day = "sun";
-            }
-
-            std::cout << "outside small button: " << day << std::endl;
-            ImGui::Text("%s", day);
-
-            if (ImGui::Button("Save"))
-            {
-                std::cout << "in button save: " << day << std::endl;
-                file.saveToFileInt(day, "calories", 123);
-            }
-
+            ImGui::Text("Water drunk: %i", sumOfWaterVolume);
             ImGui::End();
         }
 
@@ -499,10 +474,13 @@ int main(int, char **)
                 ImGui::Text("%i", food.getAllDishes()[i].getDishCalories());
             }
 
-            if (ImGui::Button("Save"))
-            {
-                //writing to file
-            }
+            // ImGui::Text("%i", food.getAllDishes()[0].getDishCalories());
+
+            // if (ImGui::Button("Save"))
+            // {
+            //     int calories = food.getAllDishes()[0].getDishCalories();
+            //     file.saveToFileInt(day, "calories", calories);
+            // }
 
             ImGui::End();
         }
