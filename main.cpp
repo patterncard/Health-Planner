@@ -440,10 +440,17 @@ int main(int, char **)
             }
 
             ImGui::Text("Water drunk: %i", sumOfWaterVolume);
+
+            if (ImGui::Button("Save"))
+            {
+                file.saveToFileInt(day, "water", sumOfWaterVolume);
+            }
             ImGui::End();
         }
 
         {
+            int calories;
+
             ImGui::Begin("Calorie Tracking");
 
             ImGui::Text("Dish proteins:");
@@ -464,7 +471,7 @@ int main(int, char **)
                 int dishCarbs = atoi(dishCarbsInput);
                 int dishFat = atoi(dishFatInput);
 
-                food.addDish(dishProtein, dishCarbs, dishFat);
+                calories = food.addDish(dishProtein, dishCarbs, dishFat);
             }
 
             ImGui::Text("calories:");
@@ -474,14 +481,10 @@ int main(int, char **)
                 ImGui::Text("%i", food.getAllDishes()[i].getDishCalories());
             }
 
-            // ImGui::Text("%i", food.getAllDishes()[0].getDishCalories());
-
-            // if (ImGui::Button("Save"))
-            // {
-            //     int calories = food.getAllDishes()[0].getDishCalories();
-            //     file.saveToFileInt(day, "calories", calories);
-            // }
-
+            if (ImGui::Button("Save"))
+            {
+                file.saveToFileInt(day, "calories", calories);
+            }
             ImGui::End();
         }
 
