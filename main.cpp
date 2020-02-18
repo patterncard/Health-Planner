@@ -92,6 +92,7 @@ int main(int, char **)
     Food food;
     Workout workout;
     ToFile file;
+    FromFile table;
 
     std::string day;
 
@@ -156,7 +157,8 @@ int main(int, char **)
                 //Deleting from file
             }
             ImGui::NextColumn();
-            ImGui::Text("1");
+            int t1 = table.readFromFileInt("mon", "bmi");
+            ImGui::Text("%i", t1);
             ImGui::NextColumn();
             ImGui::Text("2");
             ImGui::NextColumn();

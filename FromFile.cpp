@@ -7,18 +7,22 @@
 using json = nlohmann::json;
 
 // readFromFileInt("wed", "BMI");
-
 // tabelka[0][0] = healthDB["tue"]["water"];
-std::string FromFile::readFromFileInt(std::string day, std::string indicator)
+
+int FromFile::readFromFileInt(std::string day, std::string indicator)
 {
     json healthDB = {};
     std::ifstream indatabase("dataBase.json", std::ifstream::binary);
     indatabase >> healthDB;
     indatabase.close();
     return healthDB[day][indicator];
+
+    // json j_string = healthDB[day][indicator];
+    // auto cpp_string = j_string.get<std::string>();
+    // return cpp_string;
 }
 
-std::string readFromFileDouble(std::string day, std::string indicator)
+double readFromFileDouble(std::string day, std::string indicator)
 {
     json healthDB = {};
     std::ifstream indatabase("dataBase.json", std::ifstream::binary);

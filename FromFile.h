@@ -4,6 +4,6 @@
 class FromFile
 {
 public:
-    std::string readFromFileInt(std::string day, std::string indicator);
-    std::string readFromFileDouble(std::string day, std::string indicator);
+    int readFromFileInt(std::string day, std::string indicator);
+    double readFromFileDouble(std::string day, std::string indicator);
 };
