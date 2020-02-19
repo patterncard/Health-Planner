@@ -111,37 +111,37 @@ int main(int, char **)
             ImGui::NextColumn();
             if (ImGui::Button("Monday", buttonSize))
             {
-                day = "mon";
+                day = week[0];
             }
             ImGui::NextColumn();
             if (ImGui::Button("Tuesday", buttonSize))
             {
-                day = "tue";
+                day = week[1];
             }
             ImGui::NextColumn();
             if (ImGui::Button("Wednesday", buttonSize))
             {
-                day = "wed";
+                day = week[2];
             }
             ImGui::NextColumn();
             if (ImGui::Button("Thursday", buttonSize))
             {
-                day = "thu";
+                day = week[3];
             }
             ImGui::NextColumn();
             if (ImGui::Button("Friday", buttonSize))
             {
-                day = "fri";
+                day = week[4];
             }
             ImGui::NextColumn();
             if (ImGui::Button("Saturday", buttonSize))
             {
-                day = "sat";
+                day = week[5];
             }
             ImGui::NextColumn();
             if (ImGui::Button("Sunday", buttonSize))
             {
-                day = "sun";
+                day = week[6];
             }
             ImGui::NextColumn();
 
