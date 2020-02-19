@@ -154,23 +154,29 @@ int main(int, char **)
             ImGui::Text("BMI [index]");
             if (ImGui::Button("Clean"))
             {
-                //Deleting from file
+                file.saveToFileInt(day, "bmi", 0);
             }
             ImGui::NextColumn();
-            int t1 = table.readFromFileInt("mon", "bmi");
-            ImGui::Text("%i", t1);
+            int bmiForMon = table.readFromFileInt("mon", "bmi");
+            ImGui::Text("%i", bmiForMon);
             ImGui::NextColumn();
-            ImGui::Text("2");
+            int bmiForTue = table.readFromFileInt("tue", "bmi");
+            ImGui::Text("%i", bmiForTue);
             ImGui::NextColumn();
-            ImGui::Text("3");
+            int bmiForWed = table.readFromFileInt("wed", "bmi");
+            ImGui::Text("%i", bmiForWed);
             ImGui::NextColumn();
-            ImGui::Text("4");
+            int bmiForThu = table.readFromFileInt("thu", "bmi");
+            ImGui::Text("%i", bmiForThu);
             ImGui::NextColumn();
-            ImGui::Text("5");
+            int bmiForFri = table.readFromFileInt("fri", "bmi");
+            ImGui::Text("%i", bmiForFri);
             ImGui::NextColumn();
-            ImGui::Text("6");
+            int bmiForSat = table.readFromFileInt("sat", "bmi");
+            ImGui::Text("%i", bmiForSat);
             ImGui::NextColumn();
-            ImGui::Text("7");
+            int bmiForSun = table.readFromFileInt("sun", "bmi");
+            ImGui::Text("%i", bmiForSun);
             ImGui::NextColumn();
 
             ImGui::Separator();
@@ -180,22 +186,29 @@ int main(int, char **)
             ImGui::Text("[index]");
             if (ImGui::Button("Clean"))
             {
-                //Deleting from file
+                file.saveToFileInt(day, "bmr", 0);
             }
             ImGui::NextColumn();
-            ImGui::Text("11");
+            int bmrForMon = table.readFromFileInt("mon", "bmr");
+            ImGui::Text("%i", bmrForMon);
             ImGui::NextColumn();
-            ImGui::Text("22");
+            int bmrForTue = table.readFromFileInt("tue", "bmr");
+            ImGui::Text("%i", bmrForTue);
             ImGui::NextColumn();
-            ImGui::Text("33");
+            int bmrForWed = table.readFromFileInt("wed", "bmr");
+            ImGui::Text("%i", bmrForWed);
             ImGui::NextColumn();
-            ImGui::Text("44");
+            int bmrForThu = table.readFromFileInt("thu", "bmr");
+            ImGui::Text("%i", bmrForThu);
             ImGui::NextColumn();
-            ImGui::Text("55");
+            int bmrForFri = table.readFromFileInt("fri", "bmr");
+            ImGui::Text("%i", bmrForFri);
             ImGui::NextColumn();
-            ImGui::Text("66");
+            int bmrForSat = table.readFromFileInt("sat", "bmr");
+            ImGui::Text("%i", bmrForSat);
             ImGui::NextColumn();
-            ImGui::Text("77");
+            int bmrForSun = table.readFromFileInt("sun", "bmr");
+            ImGui::Text("%i", bmrForSun);
             ImGui::NextColumn();
 
             ImGui::Separator();
@@ -203,22 +216,29 @@ int main(int, char **)
             ImGui::Text("Calories [kcal]");
             if (ImGui::Button("Clean"))
             {
-                //Deleting from file
+                file.saveToFileInt(day, "calories", 0);
             }
             ImGui::NextColumn();
-            ImGui::Text("111");
+            int caloriesForMon = table.readFromFileInt("mon", "calories");
+            ImGui::Text("%i", caloriesForMon);
             ImGui::NextColumn();
-            ImGui::Text("222");
+            int caloriesForTue = table.readFromFileInt("tue", "calories");
+            ImGui::Text("%i", caloriesForTue);
             ImGui::NextColumn();
-            ImGui::Text("333");
+            int caloriesForWed = table.readFromFileInt("wed", "calories");
+            ImGui::Text("%i", caloriesForWed);
             ImGui::NextColumn();
-            ImGui::Text("444");
+            int caloriesForThu = table.readFromFileInt("thu", "calories");
+            ImGui::Text("%i", caloriesForThu);
             ImGui::NextColumn();
-            ImGui::Text("555");
+            int caloriesForFri = table.readFromFileInt("fri", "calories");
+            ImGui::Text("%i", caloriesForFri);
             ImGui::NextColumn();
-            ImGui::Text("666");
+            int caloriesForSat = table.readFromFileInt("sat", "calories");
+            ImGui::Text("%i", caloriesForSat);
             ImGui::NextColumn();
-            ImGui::Text("777");
+            int caloriesForSun = table.readFromFileInt("sun", "calories");
+            ImGui::Text("%i", caloriesForSun);
             ImGui::NextColumn();
 
             ImGui::Separator();
@@ -226,22 +246,29 @@ int main(int, char **)
             ImGui::Text("Water [ml]");
             if (ImGui::Button("Clean"))
             {
-                //Deleting from file
+                file.saveToFileInt(day, "water", 0);
             }
             ImGui::NextColumn();
-            ImGui::Text("1111");
+            int waterForMon = table.readFromFileInt("mon", "water");
+            ImGui::Text("%i", waterForMon);
             ImGui::NextColumn();
-            ImGui::Text("2222");
+            int waterForTue = table.readFromFileInt("tue", "water");
+            ImGui::Text("%i", waterForTue);
             ImGui::NextColumn();
-            ImGui::Text("3333");
+            int waterForWed = table.readFromFileInt("wed", "water");
+            ImGui::Text("%i", waterForWed);
             ImGui::NextColumn();
-            ImGui::Text("4444");
+            int waterForThu = table.readFromFileInt("thu", "water");
+            ImGui::Text("%i", waterForThu);
             ImGui::NextColumn();
-            ImGui::Text("5555");
+            int waterForFri = table.readFromFileInt("fri", "water");
+            ImGui::Text("%i", waterForFri);
             ImGui::NextColumn();
-            ImGui::Text("6666");
+            int waterForSat = table.readFromFileInt("sat", "water");
+            ImGui::Text("%i", waterForSat);
             ImGui::NextColumn();
-            ImGui::Text("7777");
+            int waterForSun = table.readFromFileInt("sun", "water");
+            ImGui::Text("%i", waterForSun);
             ImGui::NextColumn();
 
             ImGui::Separator();
@@ -249,22 +276,29 @@ int main(int, char **)
             ImGui::Text("Workout [h]");
             if (ImGui::Button("Clean"))
             {
-                //Deleting from file
+                file.saveToFileDouble(day, "training", 0);
             }
             ImGui::NextColumn();
-            ImGui::Text("11111");
+            int trainingForMon = table.readFromFileInt("mon", "training");
+            ImGui::Text("%i", trainingForMon);
             ImGui::NextColumn();
-            ImGui::Text("22222");
+            int trainingForTue = table.readFromFileInt("tue", "training");
+            ImGui::Text("%i", trainingForTue);
             ImGui::NextColumn();
-            ImGui::Text("33333");
+            int trainingForWed = table.readFromFileInt("wed", "training");
+            ImGui::Text("%i", trainingForWed);
             ImGui::NextColumn();
-            ImGui::Text("44444");
+            int trainingForThu = table.readFromFileInt("thu", "training");
+            ImGui::Text("%i", trainingForThu);
             ImGui::NextColumn();
-            ImGui::Text("55555");
+            int trainingForFri = table.readFromFileInt("fri", "training");
+            ImGui::Text("%i", trainingForFri);
             ImGui::NextColumn();
-            ImGui::Text("66666");
+            int trainingForSat = table.readFromFileInt("sat", "training");
+            ImGui::Text("%i", trainingForSat);
             ImGui::NextColumn();
-            ImGui::Text("77777");
+            int trainingForSun = table.readFromFileInt("sun", "training");
+            ImGui::Text("%i", trainingForSun);
             ImGui::NextColumn();
 
             ImGui::Columns(1);

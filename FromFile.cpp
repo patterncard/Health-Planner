@@ -16,10 +16,6 @@ int FromFile::readFromFileInt(std::string day, std::string indicator)
     indatabase >> healthDB;
     indatabase.close();
     return healthDB[day][indicator];
-
-    // json j_string = healthDB[day][indicator];
-    // auto cpp_string = j_string.get<std::string>();
-    // return cpp_string;
 }
 
 double readFromFileDouble(std::string day, std::string indicator)
