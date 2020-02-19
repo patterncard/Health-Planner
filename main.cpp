@@ -80,12 +80,6 @@ int main(int, char **)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 
-    bool showBmiResultWindow = false;
-    bool errorWindowBmi = false;
-    bool showBmrResultWindow = false;
-    bool errorWindowBmr = false;
-    bool testWindow = false;
-
     Water water;
     BMI bmi;
     BMR bmr;
@@ -181,14 +175,20 @@ int main(int, char **)
 
             ImGui::Separator();
 
-            ImGui::Text("BMR");
-            ImGui::SameLine(20);
-            ImGui::Text("[index]");
-            if (ImGui::Button("Clean"))
+            ImGui::Text("BMR [index]");
+            if (ImGui::Button("Clean###2"))
             {
                 file.saveToFileInt(day, "bmr", 0);
             }
             ImGui::NextColumn();
+
+            // const arr = ["mon", "tue", "wed"];
+
+            // for(let i = 0; i < 7; i++){
+            //     ImGui::Text("%i", table.readFromFileInt(arr[i], "bmr"));
+            //     ImGui::NextColumn();
+            // }
+
             int bmrForMon = table.readFromFileInt("mon", "bmr");
             ImGui::Text("%i", bmrForMon);
             ImGui::NextColumn();
@@ -214,7 +214,7 @@ int main(int, char **)
             ImGui::Separator();
 
             ImGui::Text("Calories [kcal]");
-            if (ImGui::Button("Clean"))
+            if (ImGui::Button("Clean###3"))
             {
                 file.saveToFileInt(day, "calories", 0);
             }
@@ -244,7 +244,7 @@ int main(int, char **)
             ImGui::Separator();
 
             ImGui::Text("Water [ml]");
-            if (ImGui::Button("Clean"))
+            if (ImGui::Button("Clean###4"))
             {
                 file.saveToFileInt(day, "water", 0);
             }
@@ -274,13 +274,13 @@ int main(int, char **)
             ImGui::Separator();
 
             ImGui::Text("Workout [h]");
-            if (ImGui::Button("Clean"))
+            if (ImGui::Button("Clean###5"))
             {
                 file.saveToFileDouble(day, "training", 0);
             }
             ImGui::NextColumn();
-            int trainingForMon = table.readFromFileInt("mon", "training");
-            ImGui::Text("%i", trainingForMon);
+            double trainingForMon = table.readFromFileDouble("mon", "training");
+            ImGui::Text("%f", trainingForMon);
             ImGui::NextColumn();
             int trainingForTue = table.readFromFileInt("tue", "training");
             ImGui::Text("%i", trainingForTue);
@@ -331,27 +331,27 @@ int main(int, char **)
                         throw "error1";
                     }
                     bmiResultDouble = bmi.calcBMI(weight, height);
-                    showBmiResultWindow = true;
+                    bmi.switchResultWindow();
                 }
                 catch (const char *e1)
                 {
                     std::cout << e1 << std::endl;
-                    errorWindowBmi = true;
+                    bmi.switchErrorWindow();
                 }
             }
-            if (errorWindowBmi)
+            if (bmi.isErrorWindowOpen)
             {
-                ImGui::Begin("Error 101", &errorWindowBmi);
+                ImGui::Begin("Error 101", &bmi.isErrorWindowOpen);
                 ImGui::Text("Value of height and weight cannot be 0 or less.");
                 ImGui::Text("Please enter positive number");
                 if (ImGui::Button("Close Me"))
-                    errorWindowBmi = false;
+                    bmi.switchErrorWindow();
                 ImGui::End();
             }
 
-            if (showBmiResultWindow)
+            if (bmi.isResultWindowOpen)
             {
-                ImGui::Begin("BMI Result", &showBmiResultWindow); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+                ImGui::Begin("BMI Result", &bmi.isResultWindowOpen); // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
                 ImGui::Text("Your BMI is: ");
                 int bmiResultInt = (double)bmiResultDouble;
                 ImGui::Text("%i", bmiResultInt);
@@ -362,7 +362,7 @@ int main(int, char **)
                 }
 
                 if (ImGui::Button("Close Me"))
-                    showBmiResultWindow = false;
+                    bmi.switchResultWindow();
                 ImGui::End();
             }
             ImGui::End();
@@ -398,27 +398,27 @@ int main(int, char **)
                         throw "error2";
                     }
                     bmrResultDouble = bmr.calcBMR(weight, height, age);
-                    showBmrResultWindow = true;
+                    bmr.switchResultWindow();
                 }
                 catch (const char *e2)
                 {
                     std::cout << e2 << std::endl;
-                    errorWindowBmr = true;
+                    bmr.switchErrorWindow();
                 }
             }
-            if (errorWindowBmr)
+            if (bmr.isErrorWindowOpen)
             {
-                ImGui::Begin("Error 202", &errorWindowBmr);
+                ImGui::Begin("Error 202", &bmr.isErrorWindowOpen);
                 ImGui::Text("Value of height, weight and age cannot be 0 or less.");
                 ImGui::Text("Please enter positive number");
                 if (ImGui::Button("Close Me"))
-                    errorWindowBmr = false;
+                    bmr.switchErrorWindow();
                 ImGui::End();
             }
 
-            if (showBmrResultWindow)
+            if (bmr.isResultWindowOpen)
             {
-                ImGui::Begin("BMR Result", &showBmrResultWindow);
+                ImGui::Begin("BMR Result", &bmr.isResultWindowOpen);
                 ImGui::Text("Your BMR is: ");
                 int bmrResultInt = (double)bmrResultDouble;
                 ImGui::Text("%i", bmrResultInt);
@@ -429,7 +429,7 @@ int main(int, char **)
                 }
 
                 if (ImGui::Button("Close Me"))
-                    showBmrResultWindow = false;
+                    bmr.switchResultWindow();
                 ImGui::End();
             }
             ImGui::End();

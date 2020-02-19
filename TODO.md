@@ -1,8 +1,8 @@
 - [ ] zachować dane w bazie danych z każdego dnia + każdego pomiaru
   - [x] struktura bazy wstępna
   - [x] zapis wyniku do bazy dla danego dnia
-  - [ ] wyświetlenie wyników z bazy dla danego dnia w tabelce
-  - [ ] usuwanie rekordów z bazy danych
+  - [x] wyświetlenie wyników z bazy dla danego dnia w tabelce
+  - [x] usuwanie rekordów z bazy danych
 - [ ] zrobić template dla saveToFile, żeby korzystało z jednej metody zamiast dwóch osobnych
 - [ ] fix the warnings
 - [ ] pętla zamiast hardcode values w main cpp dla tabelki
