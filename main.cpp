@@ -101,6 +101,8 @@ int main(int, char **)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        const std::vector<std::string> week = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+
         {
             ImGui::Begin("Week");
             ImGui::Columns(8, "days");
@@ -151,28 +153,11 @@ int main(int, char **)
                 file.saveToFileInt(day, "bmi", 0);
             }
             ImGui::NextColumn();
-            int bmiForMon = table.readFromFileInt("mon", "bmi");
-            ImGui::Text("%i", bmiForMon);
-            ImGui::NextColumn();
-            int bmiForTue = table.readFromFileInt("tue", "bmi");
-            ImGui::Text("%i", bmiForTue);
-            ImGui::NextColumn();
-            int bmiForWed = table.readFromFileInt("wed", "bmi");
-            ImGui::Text("%i", bmiForWed);
-            ImGui::NextColumn();
-            int bmiForThu = table.readFromFileInt("thu", "bmi");
-            ImGui::Text("%i", bmiForThu);
-            ImGui::NextColumn();
-            int bmiForFri = table.readFromFileInt("fri", "bmi");
-            ImGui::Text("%i", bmiForFri);
-            ImGui::NextColumn();
-            int bmiForSat = table.readFromFileInt("sat", "bmi");
-            ImGui::Text("%i", bmiForSat);
-            ImGui::NextColumn();
-            int bmiForSun = table.readFromFileInt("sun", "bmi");
-            ImGui::Text("%i", bmiForSun);
-            ImGui::NextColumn();
-
+            for (int i = 0; i < week.size(); i++)
+            {
+                ImGui::Text("%i", table.readFromFileInt(week[i], "bmi"));
+                ImGui::NextColumn();
+            }
             ImGui::Separator();
 
             ImGui::Text("BMR [index]");
@@ -181,36 +166,11 @@ int main(int, char **)
                 file.saveToFileInt(day, "bmr", 0);
             }
             ImGui::NextColumn();
-
-            // const arr = ["mon", "tue", "wed"];
-
-            // for(let i = 0; i < 7; i++){
-            //     ImGui::Text("%i", table.readFromFileInt(arr[i], "bmr"));
-            //     ImGui::NextColumn();
-            // }
-
-            int bmrForMon = table.readFromFileInt("mon", "bmr");
-            ImGui::Text("%i", bmrForMon);
-            ImGui::NextColumn();
-            int bmrForTue = table.readFromFileInt("tue", "bmr");
-            ImGui::Text("%i", bmrForTue);
-            ImGui::NextColumn();
-            int bmrForWed = table.readFromFileInt("wed", "bmr");
-            ImGui::Text("%i", bmrForWed);
-            ImGui::NextColumn();
-            int bmrForThu = table.readFromFileInt("thu", "bmr");
-            ImGui::Text("%i", bmrForThu);
-            ImGui::NextColumn();
-            int bmrForFri = table.readFromFileInt("fri", "bmr");
-            ImGui::Text("%i", bmrForFri);
-            ImGui::NextColumn();
-            int bmrForSat = table.readFromFileInt("sat", "bmr");
-            ImGui::Text("%i", bmrForSat);
-            ImGui::NextColumn();
-            int bmrForSun = table.readFromFileInt("sun", "bmr");
-            ImGui::Text("%i", bmrForSun);
-            ImGui::NextColumn();
-
+            for (int i = 0; i < week.size(); i++)
+            {
+                ImGui::Text("%i", table.readFromFileInt(week[i], "bmr"));
+                ImGui::NextColumn();
+            }
             ImGui::Separator();
 
             ImGui::Text("Calories [kcal]");
@@ -219,28 +179,11 @@ int main(int, char **)
                 file.saveToFileInt(day, "calories", 0);
             }
             ImGui::NextColumn();
-            int caloriesForMon = table.readFromFileInt("mon", "calories");
-            ImGui::Text("%i", caloriesForMon);
-            ImGui::NextColumn();
-            int caloriesForTue = table.readFromFileInt("tue", "calories");
-            ImGui::Text("%i", caloriesForTue);
-            ImGui::NextColumn();
-            int caloriesForWed = table.readFromFileInt("wed", "calories");
-            ImGui::Text("%i", caloriesForWed);
-            ImGui::NextColumn();
-            int caloriesForThu = table.readFromFileInt("thu", "calories");
-            ImGui::Text("%i", caloriesForThu);
-            ImGui::NextColumn();
-            int caloriesForFri = table.readFromFileInt("fri", "calories");
-            ImGui::Text("%i", caloriesForFri);
-            ImGui::NextColumn();
-            int caloriesForSat = table.readFromFileInt("sat", "calories");
-            ImGui::Text("%i", caloriesForSat);
-            ImGui::NextColumn();
-            int caloriesForSun = table.readFromFileInt("sun", "calories");
-            ImGui::Text("%i", caloriesForSun);
-            ImGui::NextColumn();
-
+            for (int i = 0; i < week.size(); i++)
+            {
+                ImGui::Text("%i", table.readFromFileInt(week[i], "calories"));
+                ImGui::NextColumn();
+            }
             ImGui::Separator();
 
             ImGui::Text("Water [ml]");
@@ -249,28 +192,11 @@ int main(int, char **)
                 file.saveToFileInt(day, "water", 0);
             }
             ImGui::NextColumn();
-            int waterForMon = table.readFromFileInt("mon", "water");
-            ImGui::Text("%i", waterForMon);
-            ImGui::NextColumn();
-            int waterForTue = table.readFromFileInt("tue", "water");
-            ImGui::Text("%i", waterForTue);
-            ImGui::NextColumn();
-            int waterForWed = table.readFromFileInt("wed", "water");
-            ImGui::Text("%i", waterForWed);
-            ImGui::NextColumn();
-            int waterForThu = table.readFromFileInt("thu", "water");
-            ImGui::Text("%i", waterForThu);
-            ImGui::NextColumn();
-            int waterForFri = table.readFromFileInt("fri", "water");
-            ImGui::Text("%i", waterForFri);
-            ImGui::NextColumn();
-            int waterForSat = table.readFromFileInt("sat", "water");
-            ImGui::Text("%i", waterForSat);
-            ImGui::NextColumn();
-            int waterForSun = table.readFromFileInt("sun", "water");
-            ImGui::Text("%i", waterForSun);
-            ImGui::NextColumn();
-
+            for (int i = 0; i < week.size(); i++)
+            {
+                ImGui::Text("%i", table.readFromFileInt(week[i], "water"));
+                ImGui::NextColumn();
+            }
             ImGui::Separator();
 
             ImGui::Text("Workout [h]");
@@ -279,27 +205,11 @@ int main(int, char **)
                 file.saveToFileDouble(day, "training", 0);
             }
             ImGui::NextColumn();
-            double trainingForMon = table.readFromFileDouble("mon", "training");
-            ImGui::Text("%f", trainingForMon);
-            ImGui::NextColumn();
-            int trainingForTue = table.readFromFileInt("tue", "training");
-            ImGui::Text("%i", trainingForTue);
-            ImGui::NextColumn();
-            int trainingForWed = table.readFromFileInt("wed", "training");
-            ImGui::Text("%i", trainingForWed);
-            ImGui::NextColumn();
-            int trainingForThu = table.readFromFileInt("thu", "training");
-            ImGui::Text("%i", trainingForThu);
-            ImGui::NextColumn();
-            int trainingForFri = table.readFromFileInt("fri", "training");
-            ImGui::Text("%i", trainingForFri);
-            ImGui::NextColumn();
-            int trainingForSat = table.readFromFileInt("sat", "training");
-            ImGui::Text("%i", trainingForSat);
-            ImGui::NextColumn();
-            int trainingForSun = table.readFromFileInt("sun", "training");
-            ImGui::Text("%i", trainingForSun);
-            ImGui::NextColumn();
+            for (int i = 0; i < week.size(); i++)
+            {
+                ImGui::Text("%i", table.readFromFileInt(week[i], "training"));
+                ImGui::NextColumn();
+            }
 
             ImGui::Columns(1);
 
