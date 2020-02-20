@@ -207,7 +207,7 @@ int main(int, char **)
             ImGui::NextColumn();
             for (int i = 0; i < week.size(); i++)
             {
-                ImGui::Text("%f", table.readFromFileDouble(week[i], "training"));
+                ImGui::Text("%.1f", table.readFromFileDouble(week[i], "training"));
                 ImGui::NextColumn();
             }
 
@@ -361,7 +361,7 @@ int main(int, char **)
                 sumOfTimeTrained = workout.sumAllTimeSpent();
             }
 
-            ImGui::Text("Time spent on training: %f", sumOfTimeTrained);
+            ImGui::Text("Time spent on training: %.1f", sumOfTimeTrained);
 
             if (ImGui::Button("Save"))
             {
@@ -419,14 +419,14 @@ int main(int, char **)
                 int dishCarbs = atoi(dishCarbsInput);
                 int dishFat = atoi(dishFatInput);
 
-                calories = food.addDish(dishProtein, dishCarbs, dishFat);
+                calories = food.calcCalories(dishProtein, dishCarbs, dishFat);
             }
 
             ImGui::Text("calories:");
 
-            for (int i = 0; i < food.getAllDishes().size(); i++)
+            for (int i = 0; i < food.getAllCalories().size(); i++)
             {
-                ImGui::Text("%i", food.getAllDishes()[i].getDishCalories());
+                ImGui::Text("%i", food.getAllCalories()[i].getDishCalories());
             }
 
             if (ImGui::Button("Save"))

@@ -5,6 +5,6 @@ class Workout
 public:
     Workout();
     std::vector<double> timeTrainedMinutes;
-    void addRecord(double glass);
+    void addRecord(double time);
     double sumAllTimeSpent();
 };

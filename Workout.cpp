@@ -7,9 +7,9 @@ Workout::Workout()
     std::cout << "Initialized Workout Module" << std::endl;
 }
 
-void Workout::addRecord(double glass)
+void Workout::addRecord(double time)
 {
-    timeTrainedMinutes.push_back(glass);
+    timeTrainedMinutes.push_back(time);
 };
 
 double Workout::sumAllTimeSpent()

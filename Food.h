@@ -8,6 +8,6 @@ private:
 
 public:
     Food();
-    int addDish(int protein, int carbs, int fat);
-    std::vector<Dish> getAllDishes();
+    int calcCalories(int protein, int carbs, int fat);
+    std::vector<Dish> getAllCalories();
 };
