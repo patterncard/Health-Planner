@@ -207,7 +207,7 @@ int main(int, char **)
             ImGui::NextColumn();
             for (int i = 0; i < week.size(); i++)
             {
-                ImGui::Text("%i", table.readFromFileInt(week[i], "training"));
+                ImGui::Text("%f", table.readFromFileDouble(week[i], "training"));
                 ImGui::NextColumn();
             }
 
