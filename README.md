@@ -6,6 +6,6 @@ information concerning health is provided.
 
 ## To run program:
 1. Compile and link libraries with command:
-    $ make all
+    <br/>$ make all
 2. Run program with command:
-    $ ./health
+    <br/>$ ./health
